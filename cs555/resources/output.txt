@@ -1,0 +1,176 @@
+--> 0 HEAD
+<-- 0|HEAD|Y
+--> 0 NOTE Brandon Cheung
+<-- 0|NOTE|Y|Brandon Cheung
+--> 0 I1 INDI
+<-- 0|INDI|Y|I1
+--> 1 NAME Joe /Smith/
+<-- 1|NAME|Y|Joe /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 17 APR 1952
+<-- 2|DATE|Y|17 APR 1952
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMS SmithG
+<-- 1|FAMS|Y|SmithG
+--> 0 I2 INDI
+<-- 0|INDI|Y|I2
+--> 1 NAME Sarah /Smith/
+<-- 1|NAME|Y|Sarah /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 5 MAY 1955
+<-- 2|DATE|Y|5 MAY 1955
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMS SmithG
+<-- 1|FAMS|Y|SmithG
+--> 0 I3 INDI
+<-- 0|INDI|Y|I3
+--> 1 NAME Richard /Johnson/
+<-- 1|NAME|Y|Richard /Johnson/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 22 JAN 1953
+<-- 2|DATE|Y|22 JAN 1953
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMS JohnsonG
+<-- 1|FAMS|Y|JohnsonG
+--> 0 I4 INDI
+<-- 0|INDI|Y|I4
+--> 1 NAME Sharon /Johnson/
+<-- 1|NAME|Y|Sharon /Johnson/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 FEB 1960
+<-- 2|DATE|Y|15 FEB 1960
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMS JohnsonG
+<-- 1|FAMS|Y|JohnsonG
+--> 0 I5 INDI
+<-- 0|INDI|Y|I5
+--> 1 NAME Jeff /Smith/
+<-- 1|NAME|Y|Jeff /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 11 AUG 1985
+<-- 2|DATE|Y|11 AUG 1985
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithG
+<-- 1|FAMC|Y|SmithG
+--> 1 FAMS SmithP
+<-- 1|FAMS|Y|SmithP
+--> 1 FAMS SmithPP
+<-- 1|FAMS|Y|SmithPP
+--> 0 I6 INDI
+<-- 0|INDI|Y|I6
+--> 1 NAME Catherine /Smith/
+<-- 1|NAME|Y|Catherine /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 10 OCT 1988
+<-- 2|DATE|Y|10 OCT 1988
+--> 1 DEAT
+<-- 1|DEAT|Y
+--> 2 DATE 10 OCT 2009
+<-- 2|DATE|Y|10 OCT 2009
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMC JohnsonG
+<-- 1|FAMC|Y|JohnsonG
+--> 1 FAMS SmithP
+<-- 1|FAMS|Y|SmithP
+--> 0 I7 INDI
+<-- 0|INDI|Y|I7
+--> 1 NAME Susan /Smith/
+<-- 1|NAME|Y|Susan /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 11 OCT 1989
+<-- 2|DATE|Y|11 OCT 1989
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMC JohnsonG
+<-- 1|FAMC|Y|JohnsonG
+--> 1 FAMS SmithPP
+<-- 1|FAMS|Y|SmithPP
+--> 0 I8 INDI
+<-- 0|INDI|Y|I8
+--> 1 NAME Alex /Smith/
+<-- 1|NAME|Y|Alex /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 Jan 2006
+<-- 2|DATE|Y|15 Jan 2006
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC JohnsonP
+<-- 1|FAMC|Y|JohnsonP
+--> 0 I9 INDI
+<-- 0|INDI|Y|I9
+--> 1 NAME Billy /Smith/
+<-- 1|NAME|Y|Billy /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 22 JUL 2012
+<-- 2|DATE|Y|22 JUL 2012
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithPP
+<-- 1|FAMC|Y|SmithPP
+--> 0 SmithG FAM 
+<-- 0|SmithG|N|FAM 
+--> 1 HUSB I1
+<-- 1|HUSB|Y|I1
+--> 1 WIFE I2
+<-- 1|WIFE|Y|I2
+--> 1 MARR
+<-- 1|MARR|Y
+--> 2 DATE 26 JUN 1983
+<-- 2|DATE|Y|26 JUN 1983
+--> 1 CHIL I5
+<-- 1|CHIL|Y|I5
+--> 0 JohnsonG FAM
+<-- 0|FAM|Y|JohnsonG
+--> 1 HUSB I3
+<-- 1|HUSB|Y|I3
+--> 1 WIFE I4
+<-- 1|WIFE|Y|I4
+--> 1 MARR
+<-- 1|MARR|Y
+--> 2 DATE 12 AUG 1985
+<-- 2|DATE|Y|12 AUG 1985
+--> 1 CHIL I6
+<-- 1|CHIL|Y|I6
+--> 1 CHIL I7
+<-- 1|CHIL|Y|I7
+--> 0 SmithP FAM
+<-- 0|FAM|Y|SmithP
+--> 1 HUSB I5
+<-- 1|HUSB|Y|I5
+--> 1 WIFE I6
+<-- 1|WIFE|Y|I6
+--> 1 MARR
+<-- 1|MARR|Y
+--> 2 DATE 12 JAN 2005
+<-- 2|DATE|Y|12 JAN 2005
+--> 1 CHIL I8
+<-- 1|CHIL|Y|I8
+--> 0 SmithPP FAM
+<-- 0|FAM|Y|SmithPP
+--> 1 HUSB I5
+<-- 1|HUSB|Y|I5
+--> 1 WIFE I7
+<-- 1|WIFE|Y|I7
+--> 1 MARR
+<-- 1|MARR|Y
+--> 2 DATE 10 OCT 2011
+<-- 2|DATE|Y|10 OCT 2011
+--> 1 CHIL I9
+<-- 1|CHIL|Y|I9
+--> 0 TRLR
+<-- 0|TRLR|Y
