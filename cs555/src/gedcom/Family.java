@@ -1,5 +1,8 @@
 package gedcom;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +15,7 @@ public class Family {
 	private String wifeId;
 	private String wifeName;
 	private List<String> children;
+	private static DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd" );
 
 	public Family() {
 	
@@ -26,6 +30,22 @@ public class Family {
 		this.wifeId = wifeId;
 		this.wifeName = wifeName;
 		this.children = children;
+	}
+	
+	public String getFamily() {
+		String marry = married == null ? "NA" : formatter.format( this.married );
+		String divorce = divorced == null ? "NA" : formatter.format( this.divorced );
+		String child;
+		if ( this.children == null ) {
+			child = "NA";
+		} else {
+			List<String> children = new ArrayList<String>();
+			for ( String s: this.children ) {
+				children.add( "'" + s + "'" );
+			}
+			child = "\"{" + String.join( ", ", children ) + "}\"";
+		}
+		return String.format( "%s,%s,%s,%s,%s,%s,%s,%s ", this.id, marry, divorce, husbandId, husbandName, wifeId, wifeName, child );
 	}
 
 	public String getId() {

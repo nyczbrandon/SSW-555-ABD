@@ -1,0 +1,17 @@
+Individuals
+ID,Name,Gender,Birthday,Age,Alive,Death,Child,Spouse
+I9,Billy /Smith/,SEX,2012-07-22,5,true,NA,"{'SmithPP'}",NA
+I1,Joe /Smith/,SEX,1952-04-17,65,true,NA,NA,"{'SmithG'}"
+I2,Sarah /Smith/,SEX,1955-05-05,62,true,NA,NA,"{'SmithG'}"
+I3,Richard /Johnson/,SEX,1953-01-22,64,true,NA,NA,"{'JohnsonG'}"
+I4,Sharon /Johnson/,SEX,1960-02-15,57,true,NA,NA,"{'JohnsonG'}"
+I5,Jeff /Smith/,SEX,1985-08-11,32,true,NA,"{'SmithG'}","{'SmithP', 'SmithPP'}"
+I6,Catherine /Smith/,SEX,2009-10-10,-1,false,2009-10-10,"{'JohnsonG'}","{'SmithP'}"
+I7,Susan /Smith/,SEX,1989-10-11,27,true,NA,"{'JohnsonG'}","{'SmithPP'}"
+I8,Alex /Smith/,SEX,2006-01-15,11,true,NA,"{'JohnsonP'}",NA
+Families
+ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children
+SmithPP,2011-10-10,NA,I5,Jeff /Smith/,I7,Susan /Smith/,"{'I9'}" 
+JohnsonG,1985-08-12,NA,I3,Richard /Johnson/,I4,Sharon /Johnson/,"{'I6', 'I7'}" 
+SmithG,1983-06-26,NA,I1,Joe /Smith/,I2,Sarah /Smith/,"{'I5'}" 
+SmithP,2005-01-12,NA,I5,Jeff /Smith/,I6,Catherine /Smith/,"{'I8'}" 

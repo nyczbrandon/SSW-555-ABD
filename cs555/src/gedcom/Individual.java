@@ -1,5 +1,8 @@
 package gedcom;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class Individual {
 	private Date death;
 	private List<String> children;
 	private List<String> spouses;
+	private static DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd" );
 	
 	public Individual() {
 		
@@ -28,6 +32,32 @@ public class Individual {
 		this.death = death;
 		this.children = children;
 		this.spouses = spouses;
+	}
+	
+	public String getIndividual() {
+		String bday = formatter.format( this.birthday );
+		String dday = this.death == null ? "NA" : formatter.format( this.death );
+		String child;
+		String spouse;
+		if ( this.children == null ) {
+			child = "NA";
+		} else {
+			List<String> children = new ArrayList<String>();
+			for ( String s: this.children ) {
+				children.add( "'" + s + "'" );
+			}
+			child = "\"{" + String.join( ", ", children ) + "}\"";
+		}
+		if ( this.spouses == null ) {
+			spouse = "NA";
+		} else {
+			List<String> spouses = new ArrayList<String>();
+			for ( String s: this.spouses) {
+				spouses.add( "'" + s + "'" );
+			}
+			spouse = "\"{" + String.join( ", ", spouses ) + "}\"";
+		}
+		return String.format( "%s,%s,%s,%s,%s,%s,%s,%s,%s", this.id, this.name, this.gender, bday, this.age, this.alive, dday, child, spouse );
 	}
 
 	public String getId() {
