@@ -135,7 +135,7 @@ public class GEDCOMReader {
 								if ( split.get( 1 ).equals( "NAME" ) ) {
 									i.setName( split.get( 2 ) );
 								} else if ( split.get( 1 ).equals( "SEX" ) ) {
-									i.setGender( split.get( 1 ) );
+									i.setGender( split.get( 2 ) );
 								} else if ( split.get( 1 ).equals( "FAMS" ) ) {
 									List<String> spouses;
 									if ( i.getSpouses() != null ) {
