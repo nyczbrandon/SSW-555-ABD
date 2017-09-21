@@ -18,11 +18,14 @@ import java.util.Map;
 
 public class GEDCOMReader {
 	private File gedcomFile;
+	Map<String, Individual> individuals;
+	Map<String, Family> families;
 	public static final List GEDCOM_TAGS = new ArrayList<String>(Arrays.asList( "INDI", "NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "FAM", "MARR", "HUSB", "WIFE", "CHIL", "DIV", "DATE", "HEAD", "TRLR", "NOTE" ) );
 	private static DateFormat formatter = new SimpleDateFormat( "dd MMM yyyy" );
 	
-	public GEDCOMReader( String gedcomFile ) {
+	public GEDCOMReader( String gedcomFile ) throws Exception {
 		this.gedcomFile = new File( gedcomFile );
+		createGEDCOMObjects();
 	}
 	
 	public void trimGEDCOMFile() throws Exception {
@@ -75,8 +78,8 @@ public class GEDCOMReader {
 	public void createGEDCOMObjects() throws Exception {
 		BufferedReader br = new BufferedReader( new FileReader( gedcomFile ) );
 		String line = br.readLine();
-		Map<String, Individual> individuals = new HashMap<String, Individual>();
-		Map<String, Family> families = new HashMap<String, Family>();
+		individuals = new HashMap<String, Individual>();
+		families = new HashMap<String, Family>();
 		while( line != null) {
 			List<String> split = new ArrayList<String>( Arrays.asList( line.split( " ", 3 ) ) );
 			split.replaceAll(String::trim);
@@ -221,10 +224,9 @@ public class GEDCOMReader {
 			e.getValue().setWifeName( individuals.get( wifeId ).getName() );
 		}
 		br.close();
-		writeGEDCOMTable( individuals, families );
 	}
 	
-	private void writeGEDCOMTable( Map<String, Individual> individuals, Map<String, Family> families ) throws Exception {
+	public void writeGEDCOMTable() throws Exception {
 		File outputFile = new File( "resources/" + gedcomFile.getName().split("\\.")[0] + "outputtable.csv" );
 		if ( !outputFile.exists() ) {
 			outputFile.createNewFile();
@@ -256,7 +258,7 @@ public class GEDCOMReader {
 		GEDCOMReader gr = new GEDCOMReader( args[0] );
 		gr.trimGEDCOMFile();
 		gr.printGEDCOMFile();
-		gr.createGEDCOMObjects();
+		gr.writeGEDCOMTable();
 	}
 
 }

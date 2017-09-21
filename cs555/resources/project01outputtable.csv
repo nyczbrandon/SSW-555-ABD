@@ -1,19 +1,19 @@
 Individuals
 ID,Name,Gender,Birthday,Age,Alive,Death,Child,Spouse
-P1,Sarah /Lockheart/,SEX,1950-05-12,67,true,NA,NA,"{'LockheartES'}"
-P2,Eizen /Lockheart/,SEX,1948-06-10,69,true,NA,NA,"{'LockheartES'}"
-P3,Lisa /Eldritch/,SEX,1947-08-03,70,true,NA,NA,"{'EldritchSL'}"
-P4,Samuel /Eldritch/,SEX,1949-10-26,67,true,NA,NA,"{'EldritchSL'}"
-P5,Karen /Lockheart/,SEX,1972-11-05,44,true,NA,"{'HearthstoneHH'}","{'LockheartTKA'}"
-P6,Theodore /Lockheart/,SEX,1970-02-10,47,true,NA,"{'LockheartES'}","{'LockheartTKA', 'LockheartTKR'}"
-P7,Kyrin /Lockheart/,SEX,1986-09-14,0,false,1986-09-14,"{'HearthstoneHH'}","{'LockheartTKR'}"
-P8,Lucy /Eldritch/,SEX,1970-02-10,47,true,NA,"{'LockheartES'}","{'EldritchEL'}"
-P9,Bradley /Elritch/,SEX,1970-02-15,47,true,NA,"{'EldritchSL'}","{'EldritchBL'}"
-P10,Michelle /Eldritch/,SEX,2017-10-09,-1,true,NA,"{'LockheartTKA'}",NA
-P12,Teddy /Eldritch/,SEX,2016-01-01,1,true,NA,"{'EldritchBL'}",NA
-P11,Bradley /Lockheart/,SEX,1986-09-12,30,true,NA,"{'LockheartTKR', 'LockheartTKA'}",NA
-P14,Hanzo /Hearthstone/,SEX,1938-09-05,78,true,NA,NA,"{'HearthstoneHH'}"
-P13,Himari /Lockheart/,SEX,1940-05-01,77,true,NA,NA,"{'HearthstoneHH'}"
+P1,Sarah /Lockheart/,F,1950-05-12,67,true,NA,NA,"{'LockheartES'}"
+P2,Eizen /Lockheart/,M,1948-06-10,69,true,NA,NA,"{'LockheartES'}"
+P3,Lisa /Eldritch/,F,1947-08-03,70,true,NA,NA,"{'EldritchSL'}"
+P4,Samuel /Eldritch/,M,1949-10-26,67,true,NA,NA,"{'EldritchSL'}"
+P5,Karen /Lockheart/,F,1972-11-05,44,true,NA,"{'HearthstoneHH'}","{'LockheartTKA'}"
+P6,Theodore /Lockheart/,M,1970-02-10,47,true,NA,"{'LockheartES'}","{'LockheartTKA', 'LockheartTKR'}"
+P7,Kyrin /Lockheart/,F,1986-09-14,0,false,1986-09-14,"{'HearthstoneHH'}","{'LockheartTKR'}"
+P8,Lucy /Eldritch/,F,1970-02-10,47,true,NA,"{'LockheartES'}","{'EldritchEL'}"
+P9,Bradley /Elritch/,M,1970-02-15,47,true,NA,"{'EldritchSL'}","{'EldritchBL'}"
+P10,Michelle /Eldritch/,F,2017-10-09,-1,true,NA,"{'LockheartTKA'}",NA
+P12,Teddy /Eldritch/,M,2016-01-01,1,true,NA,"{'EldritchBL'}",NA
+P11,Bradley /Lockheart/,M,1986-09-12,30,true,NA,"{'LockheartTKR', 'LockheartTKA'}",NA
+P14,Hanzo /Hearthstone/,M,1938-09-05,78,true,NA,NA,"{'HearthstoneHH'}"
+P13,Himari /Lockheart/,F,1940-05-01,77,true,NA,NA,"{'HearthstoneHH'}"
 Families
 ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children
 HearthstoneHH,1960-08-10,NA,P14,Hanzo /Hearthstone/,P13,Himari /Lockheart/,"{'P5', 'P7'}" 
