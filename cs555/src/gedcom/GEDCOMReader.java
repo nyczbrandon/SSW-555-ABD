@@ -20,12 +20,21 @@ public class GEDCOMReader {
 	private File gedcomFile;
 	Map<String, Individual> individuals;
 	Map<String, Family> families;
-	public static final List GEDCOM_TAGS = new ArrayList<String>(Arrays.asList( "INDI", "NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "FAM", "MARR", "HUSB", "WIFE", "CHIL", "DIV", "DATE", "HEAD", "TRLR", "NOTE" ) );
+	private static final List GEDCOM_TAGS = new ArrayList<String>(Arrays.asList( "INDI", "NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "FAM", "MARR", "HUSB", "WIFE", "CHIL", "DIV", "DATE", "HEAD", "TRLR", "NOTE" ) );
+	private static final int AGE_LIMIT = 150;
 	private static DateFormat formatter = new SimpleDateFormat( "dd MMM yyyy" );
 	
 	public GEDCOMReader( String gedcomFile ) throws Exception {
 		this.gedcomFile = new File( gedcomFile );
 		createGEDCOMObjects();
+	}
+	
+	public Map<String, Individual> getIndividuals() {
+		return individuals;
+	}
+	
+	public Map<String, Family> getFamilies() {
+		return families;
 	}
 	
 	public void trimGEDCOMFile() throws Exception {
@@ -251,6 +260,10 @@ public class GEDCOMReader {
 		bw.close();
 	}
 	
+	public void setAgeLimit() {
+		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
+	}
+	
 	public static void main(String[] args) throws Exception {
 		for ( String s: args ) {
 			System.out.println( s );
@@ -260,5 +273,4 @@ public class GEDCOMReader {
 		gr.printGEDCOMFile();
 		gr.writeGEDCOMTable();
 	}
-
 }
