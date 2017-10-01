@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 public class GEDCOMReader {
 	private File gedcomFile;
@@ -264,6 +265,24 @@ public class GEDCOMReader {
 		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
 	}
 	
+	//removes Individual if the death date comes before their birthday
+	public void checkDeaths(){
+		individuals.entrySet().removeIf( e -> e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0);
+	}
+
+	//changes the individual's marriage date to their birthday if marriage came before their birthday
+	public void checkMarriage(){
+		for (Map.Entry<String, Individual> e: individuals.entrySet()) {
+			Date iDate = e.getValue().getBirthday();
+			List<String> spouses = e.getValue().getSpouses();
+			for (Map.Entry<String, Family> m: families.entrySet()) {
+				if(spouses.contains(m.getValue().getId()) && m.getValue().getMarried().compareTo(iDate) < 0) {
+					m.getValue().setMarried(iDate);
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) throws Exception {
 		for ( String s: args ) {
 			System.out.println( s );
