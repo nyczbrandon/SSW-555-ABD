@@ -11,8 +11,8 @@ P8,Lucy /Eldritch/,F,1970-02-10,47,true,NA,"{'LockheartES'}","{'EldritchEL'}"
 P9,Bradley /Elritch/,M,1970-02-15,47,true,NA,"{'EldritchSL'}","{'EldritchBL'}"
 P10,Michelle /Eldritch/,F,2017-10-09,-1,true,NA,"{'LockheartTKA'}",NA
 P12,Teddy /Eldritch/,M,2016-01-01,1,true,NA,"{'EldritchBL'}",NA
-P11,Bradley /Lockheart/,M,1986-09-12,30,true,NA,"{'LockheartTKR', 'LockheartTKA'}",NA
-P14,Hanzo /Hearthstone/,M,1938-09-05,78,true,NA,NA,"{'HearthstoneHH'}"
+P11,Bradley /Lockheart/,M,1986-09-12,31,true,NA,"{'LockheartTKR', 'LockheartTKA'}",NA
+P14,Hanzo /Hearthstone/,M,1938-09-05,79,true,NA,NA,"{'HearthstoneHH'}"
 P13,Himari /Lockheart/,F,1940-05-01,77,true,NA,NA,"{'HearthstoneHH'}"
 Families
 ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children
