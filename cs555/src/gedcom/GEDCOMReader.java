@@ -21,13 +21,17 @@ public class GEDCOMReader {
 	private File gedcomFile;
 	Map<String, Individual> individuals;
 	Map<String, Family> families;
-	private static final List GEDCOM_TAGS = new ArrayList<String>(Arrays.asList( "INDI", "NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "FAM", "MARR", "HUSB", "WIFE", "CHIL", "DIV", "DATE", "HEAD", "TRLR", "NOTE" ) );
-	private static final int AGE_LIMIT = 150;
+	public static final List GEDCOM_TAGS = new ArrayList<String>(Arrays.asList( "INDI", "NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "FAM", "MARR", "HUSB", "WIFE", "CHIL", "DIV", "DATE", "HEAD", "TRLR", "NOTE" ) );
+	public static final int AGE_LIMIT = 150;
 	private static DateFormat formatter = new SimpleDateFormat( "dd MMM yyyy" );
 	
 	public GEDCOMReader( String gedcomFile ) throws Exception {
 		this.gedcomFile = new File( gedcomFile );
 		createGEDCOMObjects();
+	}
+	
+	public File getFile() {
+		return gedcomFile;
 	}
 	
 	public Map<String, Individual> getIndividuals() {
