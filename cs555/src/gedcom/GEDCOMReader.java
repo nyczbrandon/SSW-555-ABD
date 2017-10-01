@@ -286,6 +286,42 @@ public class GEDCOMReader {
 			}
 		}
 	}
+	
+	// find people whose divorce date is before to marriage date
+	public void checkDivorceBeforeMarriage() {
+		for (Map.Entry<String, Family> e : families.entrySet()) {
+			Date divorce_date = e.getValue().getDivorced();
+			Date marriage_date = e.getValue().getMarried();
+			if (divorce_date.compareTo(marriage_date) == -1) {
+				String husband_name = e.getValue().getHusbandName();
+				String wife_name = e.getValue().getWifeName();
+				String husband_id = e.getValue().getHusbandId();
+				String wife_id = e.getValue().getWifeId();
+				System.out.println("Error : Divorce date of " +  husband_name + "(" + husband_id +")" + "occurs before his marriage date.");
+				System.out.println("Error : Divorce date of " +  wife_name + "(" + wife_id +")" +"occurs before her marriage date.");
+			}
+		}
+	}
+	
+	// find people whose death date is before marriage date 
+	public void checkDeathBeforeMarriage() {
+		for (Map.Entry<String, Individual> e: individuals.entrySet()) {
+			if (e.getValue().isAlive() == false) {
+				Date death_date = e.getValue().getDeath();
+				String name = e.getValue().getName();
+				String id = e.getValue().getId();
+				for (Map.Entry<String, Family> e2: families.entrySet()) {
+					if (e2.getValue().getHusbandId().equals(id) || e2.getValue().getWifeId().equals(id)) {
+						Date marriage_date = e2.getValue().getMarried();
+						if (death_date.compareTo(marriage_date) == -1) {
+							System.out.println("Error: Death date of " + name + "(" + id +") " + "occurs before his marriage date.");
+						}
+					}
+				}
+			}
+		}
+	}
+	
 
 	public static void main(String[] args) throws Exception {
 		for ( String s: args ) {
