@@ -265,22 +265,30 @@ public class GEDCOMReader {
 		bw.close();
 	}
 	
+	//removes individuals with age over the age limit
 	public void setAgeLimit() {
 		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
 	}
 	
+	//removes individuals and families with dates after current date
+	public void checkDates() {
+		Date currentDate = new Date();
+		individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
+		families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
+	}
+	
 	//removes Individual if the death date comes before their birthday
-	public void checkDeaths(){
-		individuals.entrySet().removeIf( e -> e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0);
+	public void checkDeaths() {
+		individuals.entrySet().removeIf( e -> e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 );
 	}
 
 	//changes the individual's marriage date to their birthday if marriage came before their birthday
-	public void checkMarriage(){
-		for (Map.Entry<String, Individual> e: individuals.entrySet()) {
+	public void checkMarriage() {
+		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			Date iDate = e.getValue().getBirthday();
 			List<String> spouses = e.getValue().getSpouses();
-			for (Map.Entry<String, Family> m: families.entrySet()) {
-				if(spouses.contains(m.getValue().getId()) && m.getValue().getMarried().compareTo(iDate) < 0) {
+			for ( Map.Entry<String, Family> m: families.entrySet() ) {
+				if( spouses.contains( m.getValue().getId() ) && m.getValue().getMarried().compareTo( iDate ) < 0 ) {
 					m.getValue().setMarried(iDate);
 				}
 			}
