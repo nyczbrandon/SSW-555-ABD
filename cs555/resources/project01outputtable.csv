@@ -9,16 +9,15 @@ P6,Theodore /Lockheart/,M,1970-02-10,47,true,NA,"{'LockheartES'}","{'LockheartTK
 P7,Kyrin /Lockheart/,F,1986-09-14,0,false,1986-09-14,"{'HearthstoneHH'}","{'LockheartTKR'}"
 P8,Lucy /Eldritch/,F,1970-02-10,47,true,NA,"{'LockheartES'}","{'EldritchEL'}"
 P9,Bradley /Elritch/,M,1970-02-15,47,true,NA,"{'EldritchSL'}","{'EldritchBL'}"
-P10,Michelle /Eldritch/,F,2017-10-09,-1,true,NA,"{'LockheartTKA'}",NA
 P12,Teddy /Eldritch/,M,2016-01-01,1,true,NA,"{'EldritchBL'}",NA
 P11,Bradley /Lockheart/,M,1986-09-12,31,true,NA,"{'LockheartTKR', 'LockheartTKA'}",NA
 P14,Hanzo /Hearthstone/,M,1938-09-05,79,true,NA,NA,"{'HearthstoneHH'}"
 P13,Himari /Lockheart/,F,1940-05-01,77,true,NA,NA,"{'HearthstoneHH'}"
 Families
 ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children
-HearthstoneHH,1960-08-10,NA,P14,Hanzo /Hearthstone/,P13,Himari /Lockheart/,"{'P5', 'P7'}" 
-LockheartES,1972-08-11,NA,P2,Eizen /Lockheart/,P1,Sarah /Lockheart/,"{'P6', 'P8'}" 
-LockheartTKA,1986-09-15,NA,P6,Theodore /Lockheart/,P5,Karen /Lockheart/,"{'P10', 'P11'}" 
-LockheartTKR,1971-11-16,NA,P6,Theodore /Lockheart/,P7,Kyrin /Lockheart/,"{'P11'}" 
-EldritchSL,1963-09-11,NA,P4,Samuel /Eldritch/,P3,Lisa /Eldritch/,"{'P9'}" 
-EldritchBL,1995-02-17,NA,P9,Bradley /Elritch/,P8,Lucy /Eldritch/,"{'P12'}" 
+HearthstoneHH,2016-01-01,NA,P14,Hanzo /Hearthstone/,P13,Himari /Lockheart/,"{'P5', 'P7'}" 
+LockheartES,2016-01-01,NA,P2,Eizen /Lockheart/,P1,Sarah /Lockheart/,"{'P6', 'P8'}" 
+LockheartTKA,2016-01-01,NA,P6,Theodore /Lockheart/,P5,Karen /Lockheart/,"{'P10', 'P11'}" 
+LockheartTKR,2016-01-01,NA,P6,Theodore /Lockheart/,P7,Kyrin /Lockheart/,"{'P11'}" 
+EldritchSL,2016-01-01,NA,P4,Samuel /Eldritch/,P3,Lisa /Eldritch/,"{'P9'}" 
+EldritchBL,2016-01-01,NA,P9,Bradley /Elritch/,P8,Lucy /Eldritch/,"{'P12'}" 

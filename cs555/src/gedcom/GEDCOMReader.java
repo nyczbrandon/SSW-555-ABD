@@ -279,7 +279,7 @@ public class GEDCOMReader {
 	
 	//removes Individual if the death date comes before their birthday
 	public void checkDeaths() {
-		individuals.entrySet().removeIf( e -> e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 );
+		individuals.entrySet().removeIf( e -> ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) );
 	}
 
 	//changes the individual's marriage date to their birthday if marriage came before their birthday
@@ -288,7 +288,7 @@ public class GEDCOMReader {
 			Date iDate = e.getValue().getBirthday();
 			List<String> spouses = e.getValue().getSpouses();
 			for ( Map.Entry<String, Family> m: families.entrySet() ) {
-				if( spouses.contains( m.getValue().getId() ) && m.getValue().getMarried().compareTo( iDate ) < 0 ) {
+				if( (spouses == null || spouses.contains( m.getValue().getId() )) && m.getValue().getMarried().compareTo( iDate ) < 0 ) {
 					m.getValue().setMarried(iDate);
 				}
 			}
@@ -300,7 +300,7 @@ public class GEDCOMReader {
 		for (Map.Entry<String, Family> e : families.entrySet()) {
 			Date divorce_date = e.getValue().getDivorced();
 			Date marriage_date = e.getValue().getMarried();
-			if (divorce_date.compareTo(marriage_date) == -1) {
+			if (divorce_date != null && divorce_date.compareTo(marriage_date) == -1) {
 				String husband_name = e.getValue().getHusbandName();
 				String wife_name = e.getValue().getWifeName();
 				String husband_id = e.getValue().getHusbandId();
@@ -337,6 +337,12 @@ public class GEDCOMReader {
 		}
 		GEDCOMReader gr = new GEDCOMReader( args[0] );
 		gr.trimGEDCOMFile();
+		gr.setAgeLimit();
+		gr.checkDates();
+		gr.checkDeaths();
+		gr.checkMarriage();
+		gr.checkDivorceBeforeMarriage();
+		gr.checkDeathBeforeMarriage();
 		gr.printGEDCOMFile();
 		gr.writeGEDCOMTable();
 	}
