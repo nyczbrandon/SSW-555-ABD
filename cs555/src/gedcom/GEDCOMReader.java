@@ -254,6 +254,7 @@ public class GEDCOMReader {
 			bw.write( e.getValue().getIndividual() );
 			bw.newLine();
 		}
+		bw.newLine();
 		bw.write("Families");
 		bw.newLine();
 		bw.write( "ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children");
@@ -262,41 +263,76 @@ public class GEDCOMReader {
 			bw.write( e.getValue().getFamily() );
 			bw.newLine();
 		}
+		bw.newLine();
+		List<String> errors = getErrors();
+		for( String e: errors ) {
+			bw.write( e );
+			bw.newLine();
+		}
 		bw.close();
 	}
 	
 	//removes individuals with age over the age limit
-	public void setAgeLimit() {
-		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
+	public List<String> setAgeLimit() {
+		List<String> errors = new ArrayList<String>();
+		//individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
+		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			if ( e.getValue().getAge() >= AGE_LIMIT ) {
+				errors.add("Error : " + e.getValue().getName() + "(" + e.getValue().getId() + ") has an age of 150 or more.");
+			}
+		}
+		return errors;
 	}
 	
 	//removes individuals and families with dates after current date
-	public void checkDates() {
+	public List<String> checkDates() {
+		List<String> errors = new ArrayList<String>();
 		Date currentDate = new Date();
-		individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
-		families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
+		//individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
+		//families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
+		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			if ( currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) ) {
+				errors.add("Error : " + e.getValue().getName() + "(" + e.getValue().getId() + ") has a date after current date.");
+			}
+		}
+		for ( Map.Entry<String, Family> e: families.entrySet() ) {
+			if ( currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) ) {
+				errors.add("Error : " + e.getValue().getId() + " has a date after current date.");
+			}
+		}
+		return errors;
 	}
 	
 	//removes Individual if the death date comes before their birthday
-	public void checkDeaths() {
-		individuals.entrySet().removeIf( e -> ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) );
+	public List<String> checkDeaths() {
+		List<String> errors = new ArrayList<String>();
+		//individuals.entrySet().removeIf( e -> ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) );
+		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			if ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) {
+				errors.add("Error : Death before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
+			}
+		}
+		return errors;
 	}
-
+	
 	//changes the individual's marriage date to their birthday if marriage came before their birthday
-	public void checkMarriage() {
+	public List<String> checkMarriage() {
+		List<String> errors = new ArrayList<String>();
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			Date iDate = e.getValue().getBirthday();
 			List<String> spouses = e.getValue().getSpouses();
 			for ( Map.Entry<String, Family> m: families.entrySet() ) {
-				if( (spouses == null || spouses.contains( m.getValue().getId() )) && m.getValue().getMarried().compareTo( iDate ) < 0 ) {
-					m.getValue().setMarried(iDate);
+				if( (spouses != null && spouses.contains( m.getValue().getId() )) && m.getValue().getMarried().compareTo( iDate ) <= 0 ) {
+					errors.add("Error : Married before birth of " + m.getValue().getId() + " " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
 				}
 			}
 		}
+		return errors;
 	}
 	
 	// find people whose divorce date is before to marriage date
-	public void checkDivorceBeforeMarriage() {
+	public List<String> checkDivorceBeforeMarriage() {
+		List<String> errors = new ArrayList<String>();
 		for (Map.Entry<String, Family> e : families.entrySet()) {
 			Date divorce_date = e.getValue().getDivorced();
 			Date marriage_date = e.getValue().getMarried();
@@ -305,14 +341,16 @@ public class GEDCOMReader {
 				String wife_name = e.getValue().getWifeName();
 				String husband_id = e.getValue().getHusbandId();
 				String wife_id = e.getValue().getWifeId();
-				System.out.println("Error : Divorce date of " +  husband_name + "(" + husband_id +")" + "occurs before his marriage date.");
-				System.out.println("Error : Divorce date of " +  wife_name + "(" + wife_id +")" +"occurs before her marriage date.");
+				errors.add("Error : Divorce date of " +  husband_name + "(" + husband_id +")" + "occurs before his marriage date.");
+				errors.add("Error : Divorce date of " +  wife_name + "(" + wife_id +")" +"occurs before her marriage date.");
 			}
 		}
+		return errors;
 	}
 	
 	// find people whose death date is before marriage date 
-	public void checkDeathBeforeMarriage() {
+	public List<String> checkDeathBeforeMarriage() {
+		List<String> errors = new ArrayList<String>();
 		for (Map.Entry<String, Individual> e: individuals.entrySet()) {
 			if (e.getValue().isAlive() == false) {
 				Date death_date = e.getValue().getDeath();
@@ -322,12 +360,24 @@ public class GEDCOMReader {
 					if (e2.getValue().getHusbandId().equals(id) || e2.getValue().getWifeId().equals(id)) {
 						Date marriage_date = e2.getValue().getMarried();
 						if (death_date.compareTo(marriage_date) == -1) {
-							System.out.println("Error: Death date of " + name + "(" + id +") " + "occurs before his marriage date.");
+							errors.add("Error: Death date of " + name + "(" + id +") " + "occurs before his marriage date.");
 						}
 					}
 				}
 			}
 		}
+		return errors;
+	}
+	
+	public List<String> getErrors() {
+		List<String> errors = new ArrayList<String>();
+		errors.addAll( setAgeLimit() );
+		errors.addAll( checkDates() );
+		errors.addAll( checkDeaths() );
+		errors.addAll( checkMarriage() );
+		errors.addAll( checkDivorceBeforeMarriage() );
+		errors.addAll( checkDeathBeforeMarriage() );
+		return errors;
 	}
 	
 
@@ -337,12 +387,6 @@ public class GEDCOMReader {
 		}
 		GEDCOMReader gr = new GEDCOMReader( args[0] );
 		gr.trimGEDCOMFile();
-		gr.setAgeLimit();
-		gr.checkDates();
-		gr.checkDeaths();
-		gr.checkMarriage();
-		gr.checkDivorceBeforeMarriage();
-		gr.checkDeathBeforeMarriage();
 		gr.printGEDCOMFile();
 		gr.writeGEDCOMTable();
 	}
