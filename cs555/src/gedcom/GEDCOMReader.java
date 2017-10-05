@@ -145,7 +145,7 @@ public class GEDCOMReader {
 									split.replaceAll(String::trim);
 									i.setDeath(formatter.parse( line.split(" ", 3)[2]) );
 									if (split.get( 1 ).equals( "DATE" ) ) {
-										i.setBirthday(formatter.parse( split.get( 2 ) ) );
+										i.setDeath(formatter.parse( split.get( 2 ) ) );
 									}	
 								}
 							} else {
