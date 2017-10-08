@@ -1,20 +1,27 @@
 Individuals
 ID,Name,Gender,Birthday,Age,Alive,Death,Child,Spouse
-I9,Billy /Smith/,M,2012-07-22,5,true,NA,"{'SmithPP'}",NA
-I1,Joe /Smith/,M,1952-04-17,65,true,NA,NA,"{'SmithG'}"
+I9,Billy /Smith/,M,1962-07-22,55,true,NA,"{'SmithPP'}",NA
+I1,Joe /Smith/,M,1852-04-17,165,true,NA,NA,"{'SmithG'}"
 I2,Sarah /Smith/,F,1955-05-05,62,true,NA,NA,"{'SmithG'}"
 I3,Richard /Johnson/,M,1953-01-22,64,true,NA,NA,"{'JohnsonG'}"
 I4,Sharon /Johnson/,F,1960-02-15,57,true,NA,NA,"{'JohnsonG'}"
-I5,Jeff /Smith/,M,1985-08-11,32,true,NA,"{'SmithG'}","{'SmithP', 'SmithPP'}"
-I6,Catherine /Smith/,F,2009-10-10,0,false,2009-10-10,"{'JohnsonG'}","{'SmithP'}"
+I5,Jeff /Smith/,M,1985-08-11,19,false,2005-04-12,"{'SmithG'}","{'SmithP', 'SmithPP'}"
+I6,Catherine /Smith/,F,1988-10-10,-1,false,1987-10-10,"{'JohnsonG'}","{'SmithP'}"
 I7,Susan /Smith/,F,1989-10-11,27,true,NA,"{'JohnsonG'}","{'SmithPP'}"
-I8,Alex /Smith/,M,2006-01-15,11,true,NA,"{'JohnsonP'}",NA
+I8,Alex /Smith/,M,2020-01-15,-3,true,NA,"{'JohnsonP'}",NA
 
 Families
 ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children
-SmithPP,2011-10-10,NA,I5,Jeff /Smith/,I7,Susan /Smith/,"{'I9'}" 
+SmithPP,2011-10-10,2009-12-15,I5,Jeff /Smith/,I7,Susan /Smith/,"{'I9'}" 
 JohnsonG,1985-08-12,NA,I3,Richard /Johnson/,I4,Sharon /Johnson/,"{'I6', 'I7'}" 
 SmithG,1983-06-26,NA,I1,Joe /Smith/,I2,Sarah /Smith/,"{'I5'}" 
-SmithP,2005-01-12,NA,I5,Jeff /Smith/,I6,Catherine /Smith/,"{'I8'}" 
+SmithP,1965-01-12,NA,I5,Jeff /Smith/,I6,Catherine /Smith/,"{'I8'}" 
 
+Error : Joe /Smith/(I1) has an age of 150 or more.
+Error : Alex /Smith/(I8) has a date after current date.
+Error : Death before birth of Catherine /Smith/(I6).
+Error : Married before birth of SmithP Jeff /Smith/(I5).
 Error : Married before birth of SmithP Catherine /Smith/(I6).
+Error : Divorce date of Jeff /Smith/(I5)occurs before his marriage date.
+Error : Divorce date of Susan /Smith/(I7)occurs before her marriage date.
+Error: Death date of Jeff /Smith/(I5) occurs before his marriage date.
