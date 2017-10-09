@@ -272,35 +272,48 @@ public class GEDCOMReader {
 		bw.close();
 	}
 	
-	//removes individuals with age over the age limit
+	//checks and removes individuals with age over the age limit
 	public List<String> setAgeLimit() {
 		List<String> errors = new ArrayList<String>();
-		//individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
-			if ( e.getValue().getAge() >= AGE_LIMIT ) {
-				errors.add("Error : " + e.getValue().getName() + "(" + e.getValue().getId() + ") has an age of 150 or more.");
+			Individual i = e.getValue();
+			if ( i.getAge() >= AGE_LIMIT ) {
+				errors.add("Error : " + i.getName() + "(" + i.getId() + ") has an age of 150 or more.");
 			}
 		}
+		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
 		return errors;
 	}
 	
-	//removes individuals and families with dates after current date
+	//check and removes individuals and families with dates after current date
 	public List<String> checkDates() {
 		List<String> errors = new ArrayList<String>();
 		Date currentDate = new Date();
-		//individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
-		//families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
-		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
-			if ( currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) ) {
-				errors.add("Error : " + e.getValue().getName() + "(" + e.getValue().getId() + ") has a date after current date.");
-			}
-		}
-		for ( Map.Entry<String, Family> e: families.entrySet() ) {
-			if ( currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) ) {
-				errors.add("Error : " + e.getValue().getId() + " has a date after current date.");
-			}
-		}
+		checkIndividualsDate(errors, currentDate);
+		checkFamiliesDate(errors, currentDate);
 		return errors;
+	}
+
+	//checks and removes individuals with dates after current date
+	private void checkIndividualsDate(List<String> errors, Date currentDate) {
+		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			Individual i = e.getValue();
+			if ( currentDate.compareTo( i.getBirthday() ) < 0 || ( i.getDeath() != null && currentDate.compareTo( i.getDeath() ) < 0 ) ) {
+				errors.add("Error : " + i.getName() + "(" + i.getId() + ") has a date after current date.");
+			}
+		}
+		individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
+	}
+	
+	//checks and removes individuals with dates after current date
+	private void checkFamiliesDate(List<String> errors, Date currentDate) {
+		for ( Map.Entry<String, Family> e: families.entrySet() ) {
+			Family f = e.getValue();
+			if ( currentDate.compareTo( f.getMarried() ) < 0 || ( f.getDivorced() != null && currentDate.compareTo( f.getDivorced() ) < 0 ) ) {
+				errors.add("Error : " + f.getId() + " has a date after current date.");
+			}
+		}
+		families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
 	}
 	
 	//removes Individual if the death date comes before their birthday
@@ -323,7 +336,7 @@ public class GEDCOMReader {
 			List<String> spouses = e.getValue().getSpouses();
 			for ( Map.Entry<String, Family> m: families.entrySet() ) {
 				if( (spouses != null && spouses.contains( m.getValue().getId() )) && m.getValue().getMarried().compareTo( iDate ) <= 0 ) {
-					errors.add("Error : Married before birth of " + m.getValue().getId() + " " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
+					errors.add("Error : Family " + m.getValue().getId() + "married before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
 				}
 			}
 		}
