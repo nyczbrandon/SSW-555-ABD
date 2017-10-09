@@ -278,7 +278,7 @@ public class GEDCOMReader {
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			Individual i = e.getValue();
 			if ( i.getAge() >= AGE_LIMIT ) {
-				errors.add("Error : " + i.getName() + "(" + i.getId() + ") has an age of 150 or more.");
+				errors.add("Error (US07) : " + i.getName() + "(" + i.getId() + ") has an age of 150 or more.");
 			}
 		}
 		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
@@ -299,7 +299,7 @@ public class GEDCOMReader {
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			Individual i = e.getValue();
 			if ( currentDate.compareTo( i.getBirthday() ) < 0 || ( i.getDeath() != null && currentDate.compareTo( i.getDeath() ) < 0 ) ) {
-				errors.add("Error : " + i.getName() + "(" + i.getId() + ") has a date after current date.");
+				errors.add("Error (US01) : " + i.getName() + "(" + i.getId() + ") has a date after current date.");
 			}
 		}
 		individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
@@ -310,7 +310,7 @@ public class GEDCOMReader {
 		for ( Map.Entry<String, Family> e: families.entrySet() ) {
 			Family f = e.getValue();
 			if ( currentDate.compareTo( f.getMarried() ) < 0 || ( f.getDivorced() != null && currentDate.compareTo( f.getDivorced() ) < 0 ) ) {
-				errors.add("Error : " + f.getId() + " has a date after current date.");
+				errors.add("Error (US01) : " + f.getId() + " has a date after current date.");
 			}
 		}
 		families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
@@ -322,7 +322,7 @@ public class GEDCOMReader {
 		//individuals.entrySet().removeIf( e -> ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) );
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			if ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) {
-				errors.add("Error : Death before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
+				errors.add("Error (US03) : Death before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
 			}
 		}
 		return errors;
@@ -336,7 +336,7 @@ public class GEDCOMReader {
 			List<String> spouses = e.getValue().getSpouses();
 			for ( Map.Entry<String, Family> m: families.entrySet() ) {
 				if( (spouses != null && spouses.contains( m.getValue().getId() )) && m.getValue().getMarried().compareTo( iDate ) <= 0 ) {
-					errors.add("Error : Family " + m.getValue().getId() + "married before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
+					errors.add("Error (US02) : Family " + m.getValue().getId() + "married before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
 				}
 			}
 		}
@@ -354,8 +354,8 @@ public class GEDCOMReader {
 				String wife_name = e.getValue().getWifeName();
 				String husband_id = e.getValue().getHusbandId();
 				String wife_id = e.getValue().getWifeId();
-				errors.add("Error : Divorce date of " +  husband_name + "(" + husband_id +")" + "occurs before his marriage date.");
-				errors.add("Error : Divorce date of " +  wife_name + "(" + wife_id +")" +"occurs before her marriage date.");
+				errors.add("Error (US04) : Divorce date of " +  husband_name + "(" + husband_id +")" + "occurs before his marriage date.");
+				errors.add("Error (US04) : Divorce date of " +  wife_name + "(" + wife_id +")" +"occurs before her marriage date.");
 			}
 		}
 		return errors;
@@ -373,7 +373,7 @@ public class GEDCOMReader {
 					if (e2.getValue().getHusbandId().equals(id) || e2.getValue().getWifeId().equals(id)) {
 						Date marriage_date = e2.getValue().getMarried();
 						if (death_date.compareTo(marriage_date) == -1) {
-							errors.add("Error: Death date of " + name + "(" + id +") " + "occurs before his marriage date.");
+							errors.add("Error (US05) : Death date of " + name + "(" + id +") " + "occurs before his marriage date.");
 						}
 					}
 				}
