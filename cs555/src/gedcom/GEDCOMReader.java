@@ -411,7 +411,45 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
-	// check people whose birth date is before 
+	// check people whose birth date is before death of his or her parents
+	public List<String> checkBirthBeforeDeathofParents() {
+		List<String> errors = new ArrayList<String>();
+		for (Map.Entry<String, Family> e : families.entrySet()) {
+			String husband_id = e.getValue().getHusbandId();
+			String wife_id = e.getValue().getWifeId();
+			List<String> children = e.getValue().getChildren();
+			Individual husband = individuals.get(husband_id);
+			Individual wife = individuals.get(wife_id);
+			
+			if (husband != null && husband.isAlive() == false) {
+				Date husband_death_date = husband.getDeath();
+				for (String child_id : children) {
+					Individual child = individuals.get(child_id);
+					if (child != null) {
+						String child_name = child.getName();
+						if (child.getBirthday().compareTo(husband_death_date) == 1) {
+							errors.add("Error (US09) : Birthday of " + child_name + "(" + child_id +") " + "is after death date of parents");
+						}
+					}
+					
+				}
+			}
+			if (wife != null && wife.isAlive() == false) {
+				Date wife_death_date = wife.getDeath();
+				for (String child_id : children) {
+					Individual child = individuals.get(child_id);
+					if (child != null) {
+						String child_name = child.getName();
+						if (child.getBirthday().compareTo(wife_death_date) == 1) {
+							errors.add("Error (US09) : Birthday of " + child_name + "(" + child_id +") " + "is after death date of parents");
+						}
+					}
+					
+				}
+			}
+		}
+		return errors;
+	}
 	
 	
 	public List<String> getErrors() {
@@ -423,6 +461,7 @@ public class GEDCOMReader {
 		errors.addAll( checkDivorceBeforeMarriage() );
 		errors.addAll( checkDeathBeforeMarriage() );
 		errors.addAll( checkDivorceBeforeDeath() );
+		errors.addAll( checkBirthBeforeDeathofParents() );
 		return errors;
 	}
 	

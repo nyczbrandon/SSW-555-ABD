@@ -1,6 +1,6 @@
 Individuals
 ID,Name,Gender,Birthday,Age,Alive,Death,Child,Spouse
-I9,Billy /Smith/,M,1962-07-22,55,true,NA,"{'SmithPP'}",NA
+I9,Billy /Smith/,M,2011-07-22,6,true,NA,"{'SmithPP'}",NA
 I1,Joe /Smith/,M,1852-04-17,165,true,NA,NA,"{'SmithG'}"
 I2,Sarah /Smith/,F,1955-05-05,62,true,NA,NA,"{'SmithG'}"
 I3,Richard /Johnson/,M,1953-01-22,64,true,NA,NA,"{'JohnsonG'}"
@@ -25,4 +25,4 @@ Error (US02) : Family SmithPmarried before birth of Catherine /Smith/(I6).
 Error (US04) : Divorce date of Jeff /Smith/(I5)occurs before his marriage date.
 Error (US04) : Divorce date of Susan /Smith/(I7)occurs before her marriage date.
 Error (US05) : Death date of Jeff /Smith/(I5) occurs before his marriage date.
-Error (US06) : Divorce date of Jeff /Smith/(I5) is before his death date.
+Error (US09) : Birthday of Billy /Smith/(I9) is after death day of parents
