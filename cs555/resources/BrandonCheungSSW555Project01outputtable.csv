@@ -17,6 +17,7 @@ JohnsonG,1985-08-12,NA,I3,Richard /Johnson/,I4,Sharon /Johnson/,"{'I6', 'I7'}"
 SmithG,1983-06-26,NA,I1,Joe /Smith/,I2,Sarah /Smith/,"{'I5'}" 
 SmithP,1965-01-12,NA,I5,Jeff /Smith/,I6,Catherine /Smith/,"{'I8'}" 
 
+
 Error (US07) : Joe /Smith/(I1) has an age of 150 or more.
 Error (US01) : Alex /Smith/(I8) has a date after current date.
 Error (US03) : Death before birth of Catherine /Smith/(I6).
