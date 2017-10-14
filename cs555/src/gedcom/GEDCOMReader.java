@@ -382,6 +382,36 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	// check people whose divorce date is before death
+	public List<String> checkDivorceBeforeDeath() {
+		List<String> errors = new ArrayList<String>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			Date divorce_date = e.getValue().getDivorced();
+			if (divorce_date != null) {
+				String husband_name = e.getValue().getHusbandName();
+				String wife_name = e.getValue().getWifeName();
+				String husband_id = e.getValue().getHusbandId();
+				String wife_id = e.getValue().getWifeId();
+				for (Map.Entry<String, Individual> e2: individuals.entrySet()) {
+					if (e2.getValue().getName().equals(husband_name)) {
+						Date death_date = e2.getValue().getDeath();
+						if (death_date != null && divorce_date.compareTo(death_date) == -1) {
+							errors.add("Error (US06) : Divorce date of " + husband_name + "(" + husband_id +") " + "is before his death date.");
+						}
+					}
+					else if (e2.getValue().getName().equals(wife_name)) {
+						Date death_date = e2.getValue().getDeath();
+						if (death_date != null && divorce_date.compareTo(death_date) == -1) {
+							errors.add("Error (US06) : Divorce date of " + wife_name + "(" + wife_id +") " + "is before her death date.");
+						}
+					}
+				}
+			}
+		}
+		return errors;
+	}
+	
+	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
 		errors.addAll( setAgeLimit() );
@@ -390,6 +420,7 @@ public class GEDCOMReader {
 		errors.addAll( checkMarriage() );
 		errors.addAll( checkDivorceBeforeMarriage() );
 		errors.addAll( checkDeathBeforeMarriage() );
+		errors.addAll( checkDivorceBeforeDeath() );
 		return errors;
 	}
 	
