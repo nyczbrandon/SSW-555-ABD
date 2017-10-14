@@ -395,14 +395,14 @@ public class GEDCOMReader {
 				for (Map.Entry<String, Individual> e2: individuals.entrySet()) {
 					if (e2.getValue().getName().equals(husband_name)) {
 						Date death_date = e2.getValue().getDeath();
-						if (death_date != null && divorce_date.compareTo(death_date) == -1) {
-							errors.add("Error (US06) : Divorce date of " + husband_name + "(" + husband_id +") " + "is before his death date.");
+						if (death_date != null && divorce_date.compareTo(death_date) == 1) {
+							errors.add("Error (US06) : Death date of " + husband_name + "(" + husband_id +") " + "is before his divorce date.");
 						}
 					}
 					else if (e2.getValue().getName().equals(wife_name)) {
 						Date death_date = e2.getValue().getDeath();
-						if (death_date != null && divorce_date.compareTo(death_date) == -1) {
-							errors.add("Error (US06) : Divorce date of " + wife_name + "(" + wife_id +") " + "is before her death date.");
+						if (death_date != null && divorce_date.compareTo(death_date) == 1) {
+							errors.add("Error (US06) : Death date of " + wife_name + "(" + wife_id +") " + "is before her divorce date.");
 						}
 					}
 				}
@@ -410,6 +410,8 @@ public class GEDCOMReader {
 		}
 		return errors;
 	}
+	
+	// check people whose birth date is before 
 	
 	
 	public List<String> getErrors() {
