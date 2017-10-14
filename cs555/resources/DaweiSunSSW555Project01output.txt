@@ -60,8 +60,8 @@
 <-- 2|DATE|Y|11 AUG 1985
 --> 1 DEAT
 <-- 1|DEAT|Y
---> 2 DATE 12 APR 2005
-<-- 2|DATE|Y|12 APR 2005
+--> 2 DATE 12 APR 2010
+<-- 2|DATE|Y|12 APR 2010
 --> 1 SEX M
 <-- 1|SEX|Y|M
 --> 1 FAMC SmithG

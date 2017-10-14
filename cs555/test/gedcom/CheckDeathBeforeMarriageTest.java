@@ -34,6 +34,7 @@ public class CheckDeathBeforeMarriageTest {
 		assertNotNull( gr.getFamilies() );
 	}
 	
+	@Test
 	public void test4() {
 		boolean found = false;
 		for (Map.Entry<String, Individual> e: gr.getIndividuals().entrySet()) {
