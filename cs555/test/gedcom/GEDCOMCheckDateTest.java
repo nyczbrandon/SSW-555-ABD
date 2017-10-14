@@ -15,9 +15,11 @@ public class GEDCOMCheckDateTest {
 	
 	@BeforeClass
 	public static void before() throws Exception {
-		gr = new GEDCOMReader( "resources/project01.ged" );
+		gr = new GEDCOMReader( "resources/BrandonCheungSSW555Project01.ged" );
 		currentDate = new Date();
-		gr.checkDates();
+		for ( String s: gr.checkDates() ) {
+			System.out.println(s);
+		}
 	}
 	
 	@Test
