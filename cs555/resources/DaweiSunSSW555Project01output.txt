@@ -120,8 +120,8 @@
 <-- 1|NAME|Y|Billy /Smith/
 --> 1 BIRT
 <-- 1|BIRT|Y
---> 2 DATE 22 JUL 1962
-<-- 2|DATE|Y|22 JUL 1962
+--> 2 DATE 22 JUL 2011
+<-- 2|DATE|Y|22 JUL 2011
 --> 1 SEX M
 <-- 1|SEX|Y|M
 --> 1 FAMC SmithPP

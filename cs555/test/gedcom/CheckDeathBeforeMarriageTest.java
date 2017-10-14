@@ -51,8 +51,8 @@ public class CheckDeathBeforeMarriageTest {
 				}
 			}
 		}
-		assertTrue(found == (gr.checkDeathBeforeMarriage() != null) 
-				 || found == (gr.checkDeathBeforeMarriage() == null)
+		assertTrue(found == (gr.checkBirthBeforeDeathofParents() != null) 
+				 || found == (gr.checkBirthBeforeDeathofParents() == null)
 				 												    ); 
 	}
 
