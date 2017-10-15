@@ -467,7 +467,7 @@ public class GEDCOMReader {
 			if (today.get( Calendar.MONTH ) > marriage_date.get( Calendar.MONTH ) ) {
 				married_years = today.get( Calendar.YEAR ) - marriage_date.get( Calendar.YEAR);
 			} else {
-				married_years = today.get(Calendar.YEAR) - marriage_date( Calendar.YEAR ) - 1;
+				married_years = today.get(Calendar.YEAR) - marriage_date.get( Calendar.YEAR ) - 1;
 			}
 
 			if (husband != null && husband.isAlive() == true) {
@@ -496,6 +496,7 @@ public class GEDCOMReader {
 					errors.add("Error (US10) : Wife " + wife_name + "(" + wife_id +") " + "married before age 14");
 				}
 			} else if(wife != null && wife.isAlive() == false) {
+				String wife_name = wife.getName();
 				Calendar death_date = Calendar.getInstance();
 				death_date.setTime( wife.getDeath());
 				int been_dead = 0;
