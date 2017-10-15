@@ -451,6 +451,88 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	//check people for minimum of 14 years of age before marriage
+	public List<String> checkMinAgeForMarriage(){
+		List<String> errors = new ArrayList<String>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			String husband_id = e.getValue().getHusbandId();
+			String wife_id = e.getValue().getWifeId();
+			Individual husband = individuals.get(husband_id);
+			Individual wife = individuals.get(wife_id);
+
+			Calendar today = Calendar.getInstance();
+			Calendar marriage_date = Calendar.getInstance();
+			int married_years = 0;
+			marriage_date.setTime( e.getValue().getMarried());
+			if (today.get( Calendar.MONTH ) > marriage_date.get( Calendar.MONTH ) ) {
+				married_years = today.get( Calendar.YEAR ) - marriage_date.get( Calendar.YEAR);
+			} else {
+				married_years = today.get(Calendar.YEAR) - marriage_date( Calendar.YEAR ) - 1;
+			}
+
+			if (husband != null && husband.isAlive() == true) {
+				String husband_name = husband.getName();
+				if (14 > husband.getAge() - married_years) {
+					errors.add("Error (US10) : Husband " + husband_name + "(" + husband_id +") " + "married before age 14");
+				}
+			} else if(husband != null && husband.isAlive() == false) {
+				String husband_name = husband.getName();
+				Calendar death_date = Calendar.getInstance();
+				death_date.setTime( husband.getDeath());
+				int been_dead = 0;
+				if (today.get( Calendar.MONTH ) > death_date.get( Calendar.MONTH ) ){
+					been_dead = today.get( Calendar.YEAR ) - death_date.get( Calendar.YEAR);
+				} else {
+					been_dead = today.get(Calendar.YEAR) - death_date.get( Calendar.YEAR ) - 1;
+				}
+				if(14 > (husband.getAge() - married_years + been_dead) ) {
+					errors.add("Error (US10 : Husband " + husband_name + "(" + husband_id + ") " + "married before age 14");
+				}
+			}
+
+			if (wife != null && wife.isAlive() == true) {
+				String wife_name = wife.getName();
+				if (14 > wife.getAge() - married_years) {
+					errors.add("Error (US10) : Wife " + wife_name + "(" + wife_id +") " + "married before age 14");
+				}
+			} else if(wife != null && wife.isAlive() == false) {
+				Calendar death_date = Calendar.getInstance();
+				death_date.setTime( wife.getDeath());
+				int been_dead = 0;
+				if (today.get( Calendar.MONTH ) > death_date.get( Calendar.MONTH ) ){
+					been_dead = today.get( Calendar.YEAR ) - death_date.get( Calendar.YEAR);
+				} else {
+					been_dead = today.get(Calendar.YEAR) - death_date.get( Calendar.YEAR ) - 1;
+				}
+				if(14 > (wife.getAge() - married_years + been_dead) ) {
+					errors.add("Error (US10) : Wife " + wife_name + "(" + wife_id +") " + "married before age 14");
+				}
+			}			
+		}
+		return errors;
+	}
+
+	//check married couples for correct gender
+	public List<String> checkMarriageGenderRoles(){
+		List<String> errors = new ArrayList<String>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			String husband_id = e.getValue().getHusbandId();
+			String wife_id = e.getValue().getWifeId();
+			Individual husband = individuals.get(husband_id);
+			Individual wife = individuals.get(wife_id);
+
+			if (husband != null && !(husband.getGender().equals("M")) ){
+				String husband_name = husband.getName();
+				errors.add("Error (US21) : Gender role of " + husband_name + "(" + husband_id +") " + "is not correct");
+			}
+
+			if (wife != null && !(wife.getGender().equals("F"))) {
+				String wife_name = wife.getName();
+				errors.add("Error (US21) : Gender role of " + wife_name + "(" + wife_id + ") " + "is not correct");
+			}
+		}
+		return errors;
+	}
 	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
