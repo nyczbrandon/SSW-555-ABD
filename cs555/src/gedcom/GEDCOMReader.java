@@ -272,7 +272,7 @@ public class GEDCOMReader {
 		bw.close();
 	}
 	
-	//checks and removes individuals with age over the age limit
+	//checks  individuals with age over the age limit
 	public List<String> setAgeLimit() {
 		List<String> errors = new ArrayList<String>();
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
@@ -281,11 +281,10 @@ public class GEDCOMReader {
 				errors.add("Error (US07) : " + i.getName() + "(" + i.getId() + ") has an age of 150 or more.");
 			}
 		}
-		individuals.entrySet().removeIf( e -> e.getValue().getAge() >= AGE_LIMIT );
 		return errors;
 	}
 	
-	//check and removes individuals and families with dates after current date
+	//check individuals and families with dates after current date
 	public List<String> checkDates() {
 		List<String> errors = new ArrayList<String>();
 		Date currentDate = new Date();
@@ -294,7 +293,7 @@ public class GEDCOMReader {
 		return errors;
 	}
 
-	//checks and removes individuals with dates after current date
+	//checks individuals with dates after current date
 	private void checkIndividualsDate(List<String> errors, Date currentDate) {
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			Individual i = e.getValue();
@@ -302,10 +301,9 @@ public class GEDCOMReader {
 				errors.add("Error (US01) : " + i.getName() + "(" + i.getId() + ") has a date after current date.");
 			}
 		}
-		individuals.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getBirthday() ) < 0 || ( e.getValue().getDeath() != null && currentDate.compareTo( e.getValue().getDeath() ) < 0 ) );
 	}
 	
-	//checks and removes individuals with dates after current date
+	//checks individuals with dates after current date
 	private void checkFamiliesDate(List<String> errors, Date currentDate) {
 		for ( Map.Entry<String, Family> e: families.entrySet() ) {
 			Family f = e.getValue();
@@ -313,13 +311,37 @@ public class GEDCOMReader {
 				errors.add("Error (US01) : " + f.getId() + " has a date after current date.");
 			}
 		}
-		families.entrySet().removeIf( e -> currentDate.compareTo( e.getValue().getMarried() ) < 0 || ( e.getValue().getDivorced() != null && currentDate.compareTo( e.getValue().getDivorced() ) < 0 ) );
 	}
 	
-	//removes Individual if the death date comes before their birthday
+	//checks for individuals who were born after marriage of parents and not more than 9 months after their divorce
+	public List<String> checkBornUnwed() {
+		List<String> errors = new ArrayList<String>();
+		for ( Map.Entry<String, Family> e: families.entrySet() ) {
+			Family f = e.getValue();
+			for ( String s: f.getChildren() ) {
+				Individual c = individuals.get( s );
+				Date childBirthday = c.getBirthday();
+				if ( childBirthday.before( f.getMarried() ) ) {
+					errors.add("Error (US08) : " + c.getName() + "(" + c.getId() + ") was born before the marriage of his parents " + f.getHusbandName() + "(" + f.getHusbandId() + ") and " + f.getWifeName() + "(" + f.getWifeId() + ")." );
+				} else {
+					if ( f.getDivorced() != null ) {
+						Calendar cal = Calendar.getInstance();
+						cal.setTime( f.getDivorced() );
+						cal.add( Calendar.MONTH, -9 );
+						if ( childBirthday.after( cal.getTime() ) ) {
+							errors.add("Error (US08) : " + c.getName() + "(" + c.getId() + ") was born more than 9 months after the divorce of his parents " + f.getHusbandName() + "(" + f.getHusbandId() + ") and " + f.getWifeName() + "(" + f.getWifeId() + ")." );
+						}
+					}
+				}
+				
+			}
+		}
+		return errors;
+	}
+	
+	//checks if the Individual's death date comes before their birthday
 	public List<String> checkDeaths() {
 		List<String> errors = new ArrayList<String>();
-		//individuals.entrySet().removeIf( e -> ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) );
 		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
 			if ( e.getValue().getDeath() != null && e.getValue().getBirthday().compareTo(e.getValue().getDeath()) > 0 ) {
 				errors.add("Error (US03) : Death before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
@@ -336,7 +358,7 @@ public class GEDCOMReader {
 			List<String> spouses = e.getValue().getSpouses();
 			for ( Map.Entry<String, Family> m: families.entrySet() ) {
 				if( (spouses != null && spouses.contains( m.getValue().getId() )) && m.getValue().getMarried().compareTo( iDate ) <= 0 ) {
-					errors.add("Error (US02) : Family " + m.getValue().getId() + "married before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
+					errors.add("Error (US02) : Family " + m.getValue().getId() + " married before birth of " + e.getValue().getName() + "(" + e.getValue().getId() + ").");
 				}
 			}
 		}
@@ -486,7 +508,7 @@ public class GEDCOMReader {
 					been_dead = today.get(Calendar.YEAR) - death_date.get( Calendar.YEAR ) - 1;
 				}
 				if(14 > (husband.getAge() - married_years + been_dead) ) {
-					errors.add("Error (US10 : Husband " + husband_name + "(" + husband_id + ") " + "married before age 14");
+					errors.add("Error (US10) : Husband " + husband_name + "(" + husband_id + ") " + "married before age 14");
 				}
 			}
 
@@ -539,12 +561,15 @@ public class GEDCOMReader {
 		List<String> errors = new ArrayList<String>();
 		errors.addAll( setAgeLimit() );
 		errors.addAll( checkDates() );
+		errors.addAll( checkBornUnwed() );
 		errors.addAll( checkDeaths() );
 		errors.addAll( checkMarriage() );
 		errors.addAll( checkDivorceBeforeMarriage() );
 		errors.addAll( checkDeathBeforeMarriage() );
 		errors.addAll( checkDivorceBeforeDeath() );
 		errors.addAll( checkBirthBeforeDeathofParents() );
+		errors.addAll( checkMinAgeForMarriage() );
+		errors.addAll( checkMarriageGenderRoles() );
 		return errors;
 	}
 	
