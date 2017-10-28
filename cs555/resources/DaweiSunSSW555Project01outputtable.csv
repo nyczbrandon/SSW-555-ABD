@@ -7,7 +7,7 @@ I3,Richard /Johnson/,M,1953-01-22,64,true,NA,NA,"{'JohnsonG'}"
 I4,Sharon /Johnson/,F,1960-02-15,57,true,NA,NA,"{'JohnsonG'}"
 I5,Jeff /Smith/,M,1985-08-11,24,false,2010-04-12,"{'SmithG'}","{'SmithP', 'SmithPP'}"
 I6,Catherine /Smith/,F,1988-10-10,-1,false,1987-10-10,"{'JohnsonG'}","{'SmithP'}"
-I7,Susan /Smith/,F,1989-10-11,27,true,NA,"{'JohnsonG'}","{'SmithPP'}"
+I7,Susan /Smith/,F,1988-10-18,28,true,NA,"{'JohnsonG'}","{'SmithPP'}"
 I8,Alex /Smith/,M,2020-01-15,-3,true,NA,"{'JohnsonP'}",NA
 
 Families
@@ -31,3 +31,4 @@ Error (US09) : Birthday of Alex /Smith/(I8) is after death date of parents
 Error (US09) : Birthday of Alex /Smith/(I8) is after death date of parents
 Error (US10) : Husband Jeff /Smith/(I5) married before age 14
 Error (US10) : Wife Catherine /Smith/(I6) married before age 14
+Error (US13) : Birth dates of siblings Catherine /Smith/ (I6) and Susan /Smith/(I7) should be more than 8 months apart or less than 2 days apart.

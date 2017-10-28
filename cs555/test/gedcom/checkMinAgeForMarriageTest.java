@@ -36,11 +36,11 @@ public class checkMinAgeForMarriageTest {
 	@Test
 	public void test4() {
 		boolean found = false;
-		for (Map.Entry<String, Family> e: families.entrySet()) {
+		for (Map.Entry<String, Family> e: gr.getFamilies().entrySet()) {
 			String husband_id = e.getValue().getHusbandId();
 			String wife_id = e.getValue().getWifeId();
-			Individual husband = individuals.get(husband_id);
-			Individual wife = individuals.get(wife_id);
+			Individual husband = gr.getIndividuals().get(husband_id);
+			Individual wife = gr.getIndividuals().get(wife_id);
 
 			Calendar today = Calendar.getInstance();
 			Calendar marriage_date = Calendar.getInstance();
