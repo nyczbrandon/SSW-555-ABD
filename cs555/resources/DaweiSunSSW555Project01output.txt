@@ -94,8 +94,8 @@
 <-- 1|NAME|Y|Susan /Smith/
 --> 1 BIRT
 <-- 1|BIRT|Y
---> 2 DATE 11 OCT 1989
-<-- 2|DATE|Y|11 OCT 1989
+--> 2 DATE 18 OCT 1988
+<-- 2|DATE|Y|18 OCT 1988
 --> 1 SEX F
 <-- 1|SEX|Y|F
 --> 1 FAMC JohnsonG
