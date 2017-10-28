@@ -592,26 +592,33 @@ public class GEDCOMReader {
 		List<String> errors = new ArrayList<>();
 		
 		for (Map.Entry<String, Family> e: families.entrySet()) {
-			List<String> children = e.getValue().getChildren();
-			if (children.size() == 0) {
+			
+			if (e.getValue().getDivorced() == null) {
 				continue;
 			}
+			List<String> children = e.getValue().getChildren();
+			
 			String husband = e.getValue().getHusbandId();
 			String husband_id = e.getValue().getHusbandId();
-			List<String> spouses1 = individuals.get(husband).getSpouses();
+			List<String> spouses1 = individuals.get(husband_id).getSpouses();
+		
 			for (String child : children) {
 				for (String spouse: spouses1) {
 					if (child.equals(spouse)) {
+						System.out.println("Error (17) : " + husband + "(" + husband_id + ") married to his descendant " + child);
 						errors.add("Error (17) : " + husband + "(" + husband_id + ") married to his descendant " + child);
 					}
 				}
 			}
+			
 			String wife = e.getValue().getWifeId();
 			String wife_id = e.getValue().getWifeId();
-			List<String> spouses2 = individuals.get(wife).getSpouses();
+			List<String> spouses2 = individuals.get(wife_id).getSpouses();
+			
 			for (String child : children) {
 				for (String spouse: spouses2) {
 					if (child.equals(spouse)) {
+						System.out.println("Error (17) : " + wife + "(" + wife_id + ") married to his descendant " + child);
 						errors.add("Error (17) : " + wife + "(" + wife_id + ") married to her descendant " + child);
 					}
 				}
@@ -635,6 +642,7 @@ public class GEDCOMReader {
 		errors.addAll( checkMinAgeForMarriage() );
 		errors.addAll( checkMarriageGenderRoles() );
 		errors.addAll( checkSiblingsSpacing() );
+		errors.addAll( checkNoMarriageToDescendants() );
 		return errors;
 	}
 	
