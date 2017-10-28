@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.Date;
 
 public class GEDCOMReader {
@@ -557,6 +558,69 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	// check siblings spacing
+	public List<String> checkSiblingsSpacing() {
+		List<String> errors = new ArrayList<>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			List<String> children = e.getValue().getChildren();
+			if (children.size() < 2) {
+				continue;
+			}
+			for (int i = 0; i < children.size(); i++) {
+				for (int j = i + 1; j < children.size(); j++) {
+					String child_id_1 = children.get(i);
+					String child_id_2 = children.get(j);
+					Individual child_1 = individuals.get(child_id_1);
+					Individual child_2 = individuals.get(child_id_2);
+					String child_name_1 = child_1.getName();
+					String child_name_2 = child_2.getName();			
+					Date birthday_1 = child_1.getBirthday();
+					Date birthday_2 = child_2.getBirthday();
+					long diff = Math.abs(birthday_1.getTime() - birthday_2.getTime());
+					long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+					if (days >= 2 && days <= 240) {
+						errors.add("Error (US13) : Birth dates of siblings " + child_name_1 + " (" + child_id_1 + ") and " + child_name_2 + "(" + child_id_2 + ") should be more than 8 months apart or less than 2 days apart.");
+					}
+				}
+			}
+		}
+		return errors;
+	}
+	
+	// check no marriage to descendants
+	public List<String> checkNoMarriageToDescendants() {
+		List<String> errors = new ArrayList<>();
+		
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			List<String> children = e.getValue().getChildren();
+			if (children.size() == 0) {
+				continue;
+			}
+			String husband = e.getValue().getHusbandId();
+			String husband_id = e.getValue().getHusbandId();
+			List<String> spouses1 = individuals.get(husband).getSpouses();
+			for (String child : children) {
+				for (String spouse: spouses1) {
+					if (child.equals(spouse)) {
+						errors.add("Error (17) : " + husband + "(" + husband_id + ") married to his descendant " + child);
+					}
+				}
+			}
+			String wife = e.getValue().getWifeId();
+			String wife_id = e.getValue().getWifeId();
+			List<String> spouses2 = individuals.get(wife).getSpouses();
+			for (String child : children) {
+				for (String spouse: spouses2) {
+					if (child.equals(spouse)) {
+						errors.add("Error (17) : " + wife + "(" + wife_id + ") married to her descendant " + child);
+					}
+				}
+			}
+			
+		}
+		return errors;
+	}
+	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
 		errors.addAll( setAgeLimit() );
@@ -570,6 +634,7 @@ public class GEDCOMReader {
 		errors.addAll( checkBirthBeforeDeathofParents() );
 		errors.addAll( checkMinAgeForMarriage() );
 		errors.addAll( checkMarriageGenderRoles() );
+		errors.addAll( checkSiblingsSpacing() );
 		return errors;
 	}
 	
