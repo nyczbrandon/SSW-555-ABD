@@ -627,6 +627,45 @@ public class GEDCOMReader {
 		}
 		return errors;
 	}
+
+	//lists all deceased individuals
+	public List<String> listDeceased() {
+		List<String> dList = new ArrayList<String>();	
+		for (Map.Entry<String, Individual> e: individuals.entrySet()) {
+			if(e.getValue().isAlive() == false) {
+				dList.add("List deceased (US29): Individual " + e.getValue().getId() + " is dead.");
+			}
+		}
+		return dList;
+	}
+
+	//checks couples who are related
+	public List<String> checkNotSiblings(){
+		List<String> errors = new ArrayList<String>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			if (e.getValue().getChildren() != null) {
+				List<String> kids = new ArrayList<String>();
+				kids = e.getValue().getChildren();
+				for (int i = 0; i < kids.size(); i++) {
+					List<String> spouses = new ArrayList<String>();
+					spouses = individuals.get(kids.get(i)).getSpouses();
+					if(spouses != null) {
+						for (int j = i+1; j < kids.size(); j++) {
+							List<String> spouses2 = new ArrayList<String>();
+							spouses2 = individuals.get(kids.get(j)).getSpouses();
+							for( int spouseCount = 0; spouseCount < spouses2.size(); spouseCount++) {
+								if( spouses.contains(spouses2.get(i))) {
+									errors.add("Error (18): Family " + spouses2.get(i) + " is a marriage of siblings.");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return errors;
+	}
+	
 	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
