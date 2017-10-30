@@ -38,32 +38,25 @@ private static GEDCOMReader gr;
 	@Test
 	public void test4() {
 		boolean found = false;
-		
 		for (Map.Entry<String, Family> e: gr.getFamilies().entrySet()) {
-			if (e.getValue().getChildren() != null) {
-				List<String> kids = new ArrayList<String>();
-				kids = e.getValue().getChildren();
-				for (int i = 0; i < kids.size(); i++) {
-					List<String> spouses = new ArrayList<String>();
-					spouses = gr.getIndividuals().get(kids.get(i)).getSpouses();
-					if(spouses != null) {
-						for (int j = i+1; j < kids.size(); j++) {
-							List<String> spouses2 = new ArrayList<String>();
-							spouses2 = gr.getIndividuals().get(kids.get(j)).getSpouses();
-							for( int spouseCount = 0; spouseCount < spouses2.size(); spouseCount++) {
-								if( spouses.contains(spouses2.get(i))) {
-									found = true;
-								}
-							}
+			String husband_id = e.getValue().getHusbandId();
+			String wife_id = e.getValue().getWifeId();
+			Individual husband = gr.getIndividuals().get(husband_id);
+			Individual wife = gr.getIndividuals().get(wife_id);
+			List<String> husbandFamily = husband.getChildren();
+			List<String> wifeFamily = wife.getChildren();
+			if(husbandFamily != null && wifeFamily != null){
+				for(String hfam: husbandFamily) {
+					for(String wfam: wifeFamily) {
+						if(hfam.equals(wfam)){
+							found = true;
 						}
 					}
 				}
 			}
 		}
 		
-		assertTrue( (found == (gr.checkNotSiblings() != null)) 
-				 || (found == (gr.checkNotSiblings() == null))
-				                                                        );
+		assertTrue( found == (gr.checkNotSiblings() != null) );
 	}
 	
 		
