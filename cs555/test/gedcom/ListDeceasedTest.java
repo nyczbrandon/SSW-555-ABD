@@ -1,8 +1,8 @@
 package gedcom;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 import java.util.Map;
 
 import org.junit.BeforeClass;
@@ -43,9 +43,7 @@ private static GEDCOMReader gr;
 			}
 		}
 		
-		assertTrue( (found == (gr.listDeceased() != null)) 
-				 || (found == (gr.listDec() == null))
-				                                                        );
+		assertTrue( (found == (gr.listDeceased() != null)) || (found == (gr.listDeceased() == null)));
 	}
 	
 		

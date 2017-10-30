@@ -1,7 +1,9 @@
 package gedcom;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +39,7 @@ private static GEDCOMReader gr;
 	public void test4() {
 		boolean found = false;
 		
-		for (Map.Entry<String, Family> e: rg.getFamilies().entrySet()) {
+		for (Map.Entry<String, Family> e: gr.getFamilies().entrySet()) {
 			if (e.getValue().getChildren() != null) {
 				List<String> kids = new ArrayList<String>();
 				kids = e.getValue().getChildren();
