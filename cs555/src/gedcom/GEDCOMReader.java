@@ -366,6 +366,53 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	//checks if a family has had sextuplets or more
+	public List<String> checkBabies() {
+		List<String> errors = new ArrayList<String>();
+		for ( Map.Entry<String, Family> e: families.entrySet() ) {
+			Family f = e.getValue();
+			if ( f.getChildren().size() > 5 ) {
+				for ( String s: f.getChildren() ) {
+					int count = 0;
+					for ( String s2: f.getChildren() ) {
+						if ( individuals.get(s).getBirthday().compareTo( individuals.get( s2 ).getBirthday() ) == 0 ) {
+							count++;
+						}
+					}
+					if ( count > 5) {
+						errors.add( "Error (US14) : Family " + f.getId() + " has 6 or more children born on the same day." );
+						break;
+					}
+				}
+			}
+		}
+		return errors;
+	}
+	
+	//checks if parents are too old
+	public List<String> checkOldParents() {
+		List<String> errors = new ArrayList<String>();
+		for ( Map.Entry<String, Family> e: families.entrySet() ) {
+			Family f = e.getValue();
+			Calendar oldestMom = Calendar.getInstance();
+			Calendar oldestDad = Calendar.getInstance();
+			oldestMom.setTime( individuals.get( f.getWifeId() ).getBirthday() );
+			oldestDad.setTime( individuals.get( f.getHusbandId() ).getBirthday() );
+			oldestMom.add( Calendar.YEAR, 60 );
+			oldestDad.add( Calendar.YEAR, 80 );
+			for ( String s: f.getChildren() ) {
+				Individual child = individuals.get( s );
+				if ( oldestMom.getTime().compareTo( child.getBirthday() ) < 0 ) {
+					errors.add( "Error (US12) : Family " + f.getId() + " has mother " + f.getWifeName() + "(" + f.getWifeId() + ") that is 60 or more years older than child " + child.getName() + "(" + child.getId() + ")." );
+				}
+				if ( oldestDad.getTime().compareTo( child.getBirthday() ) < 0 ) {
+					errors.add( "Error (US12) : Family " + f.getId() + " has father " + f.getHusbandName() + "(" + f.getHusbandId() + ") that is 80 or more years older than child " + child.getName() + "(" + child.getId() + ")." );
+				}
+			}
+		}
+		return errors;
+	}
+	
 	// find people whose divorce date is before to marriage date
 	public List<String> checkDivorceBeforeMarriage() {
 		List<String> errors = new ArrayList<String>();
@@ -674,6 +721,8 @@ public class GEDCOMReader {
 		errors.addAll( checkBornUnwed() );
 		errors.addAll( checkDeaths() );
 		errors.addAll( checkMarriage() );
+		errors.addAll( checkBabies() );
+		errors.addAll( checkOldParents() );
 		errors.addAll( checkDivorceBeforeMarriage() );
 		errors.addAll( checkDeathBeforeMarriage() );
 		errors.addAll( checkDivorceBeforeDeath() );
