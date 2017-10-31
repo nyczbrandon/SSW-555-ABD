@@ -180,6 +180,7 @@ public class GEDCOMReader {
 					}
 				} else if ( split.get( 2 ).equals( "FAM" ) ) {
 					Family f = new Family();
+					f.setChildren( new ArrayList<String>() );
 					f.setId( split.get( 1 ) );
 					while ( ( line = br.readLine() ) != null ) {
 						split = new ArrayList<String>( Arrays.asList( line.split( " ", 3 ) ) );
@@ -211,14 +212,7 @@ public class GEDCOMReader {
 								} else if ( split.get( 1 ).equals( "WIFE" ) ) {
 									f.setWifeId( split.get( 2 ) );
 								} else if ( split.get( 1 ).equals( "CHIL" ) ) {
-									List<String> children;
-									if ( f.getChildren() != null ) {
-										children = f.getChildren();
-									} else {
-										children = new ArrayList<String>();
-									}
-									children.add( split.get( 2 ) );
-									f.setChildren( children );
+									f.getChildren().add( split.get( 2 ) );
 								}
 							}
 						}
@@ -651,7 +645,7 @@ public class GEDCOMReader {
 		
 			for (String child : children) {
 				for (String spouse: spouses1) {
-					if (child.equals(spouse)) {
+					if (child.equals(families.get(spouse).getWifeId())) {
 						System.out.println("Error (17) : " + husband + "(" + husband_id + ") married to his descendant " + child);
 						errors.add("Error (17) : " + husband + "(" + husband_id + ") married to his descendant " + child);
 					}
@@ -664,7 +658,7 @@ public class GEDCOMReader {
 			
 			for (String child : children) {
 				for (String spouse: spouses2) {
-					if (child.equals(spouse)) {
+					if (child.equals(families.get(spouse).getHusbandId())) {
 						System.out.println("Error (17) : " + wife + "(" + wife_id + ") married to his descendant " + child);
 						errors.add("Error (17) : " + wife + "(" + wife_id + ") married to her descendant " + child);
 					}
