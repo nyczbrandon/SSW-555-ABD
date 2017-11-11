@@ -13,8 +13,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.Date;
 
@@ -727,6 +729,44 @@ public class GEDCOMReader {
 		return retList;
 	}
 	
+	// checks all individual IDs should be unique and all family IDs should be unique
+	public List<String> checkUniqueID() {
+		List<String> errors = new ArrayList<String>();
+		Set<String> family_set = new HashSet<>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			String family_id = e.getValue().getId();
+			if (family_set.add(family_id) == false) {
+				errors.add("Error (22): All family IDs should be unique.");
+			}
+		}
+		
+		Set<String> individual_set = new HashSet<>();
+		for (Map.Entry<String, Individual> e : individuals.entrySet()) {
+			String individual_id = e.getValue().getId();
+			if (individual_set.add(individual_id) == false) {
+				errors.add("Error (22): All individual IDs should be unique.");
+			}
+		}
+		return errors;
+	}
+	
+	// checks unique name and birth date
+	public List<String> checkUniqueNameBirthDate() {
+		List<String> errors = new ArrayList<String>();
+		Set<String> name_set = new HashSet<>();
+		Set<Date> birth_date_set = new HashSet<>();
+		for (Map.Entry<String, Individual> e : individuals.entrySet()) {
+			String name = e.getValue().getName();
+			Date birth_date = e.getValue().getBirthday();
+			if (name_set.add(name) == false) {
+				errors.add("Error (23): No more than one individual with the same name.");
+			}
+			if (birth_date_set.add(birth_date) == false) {
+				errors.add("Error (23): No more than one individual with the same birth date.");
+			}
+		}
+		return errors;
+	}
 	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
