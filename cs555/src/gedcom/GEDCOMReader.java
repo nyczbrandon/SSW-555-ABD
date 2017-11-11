@@ -726,6 +726,24 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	// checks unique name and birth date
+	public List<String> checkUniqueNameBirthDate() {
+		List<String> errors = new ArrayList<String>();
+		Set<String> name_set = new HashSet<>();
+		Set<Date> birth_date_set = new HashSet<>();
+		for (Map.Entry<String, Individual> e : individuals.entrySet()) {
+			String name = e.getValue().getName();
+			Date birth_date = e.getValue().getBirthday();
+			if (name_set.add(name) == false) {
+				errors.add("Error (23): No more than one individual with the same name.");
+			}
+			if (birth_date_set.add(birth_date) == false) {
+				errors.add("Error (23): No more than one individual with the same birth date.");
+			}
+		}
+		return errors;
+	}
+	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
 		errors.addAll( setAgeLimit() );
@@ -746,6 +764,7 @@ public class GEDCOMReader {
 		errors.addAll( listDeceased() );
 		errors.addAll( checkNotSiblings() );
 		errors.addAll( checkUniqueID() );
+		errors.addAll( checkUniqueNameBirthDate() );
 		return errors;
 	}
 	
