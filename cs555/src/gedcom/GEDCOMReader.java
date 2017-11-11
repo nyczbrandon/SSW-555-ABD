@@ -704,6 +704,30 @@ public class GEDCOMReader {
 		}
 		return errors;
 	}
+
+	//lists all living married people
+	public List<String> listLivingMarried() {
+		List<String> retList = new ArrayList<String>();
+		for(Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			if(e.getValue().isAlive()==true && e.getValue().getSpouses() != null) {
+				retList.add("List Living Married (US30): Individual " + e.getValue().getId() + " is currently alive and married.");
+			}
+		}
+		return retList;
+	}
+
+	//lists all living people over 30 who have never been married
+	public List<String> listLivingSingle() {
+		List<String> retList = new ArrayList<String>();
+		for(Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			if(e.getValue().isAlive()==true && e.getValue().getSpouses() == null) {
+				if (e.getValue().getAge() >= 30) {
+					retList.add("List Living Single (US31): Individual " + e.getValue().getId() + " is currently single and older than 30.");
+				}
+			}
+		}
+		return retList;
+	}
 	
 	// checks all individual IDs should be unique and all family IDs should be unique
 	public List<String> checkUniqueID() {
@@ -763,8 +787,8 @@ public class GEDCOMReader {
 		errors.addAll( checkNoMarriageToDescendants() );
 		errors.addAll( listDeceased() );
 		errors.addAll( checkNotSiblings() );
-		errors.addAll( checkUniqueID() );
-		errors.addAll( checkUniqueNameBirthDate() );
+		errors.addAll( listLivingSingle() );
+		errors.addAll( listLivingMarried() );
 		return errors;
 	}
 	
