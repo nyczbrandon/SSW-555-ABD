@@ -13,8 +13,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.Date;
 
@@ -703,6 +705,26 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	// checks all individual IDs should be unique and all family IDs should be unique
+	public List<String> checkUniqueID() {
+		List<String> errors = new ArrayList<String>();
+		Set<String> family_set = new HashSet<>();
+		for (Map.Entry<String, Family> e: families.entrySet()) {
+			String family_id = e.getValue().getId();
+			if (family_set.add(family_id) == false) {
+				errors.add("Error (22): All family IDs should be unique.");
+			}
+		}
+		
+		Set<String> individual_set = new HashSet<>();
+		for (Map.Entry<String, Individual> e : individuals.entrySet()) {
+			String individual_id = e.getValue().getId();
+			if (individual_set.add(individual_id) == false) {
+				errors.add("Error (22): All individual IDs should be unique.");
+			}
+		}
+		return errors;
+	}
 	
 	public List<String> getErrors() {
 		List<String> errors = new ArrayList<String>();
@@ -723,6 +745,7 @@ public class GEDCOMReader {
 		errors.addAll( checkNoMarriageToDescendants() );
 		errors.addAll( listDeceased() );
 		errors.addAll( checkNotSiblings() );
+		errors.addAll( checkUniqueID() );
 		return errors;
 	}
 	
