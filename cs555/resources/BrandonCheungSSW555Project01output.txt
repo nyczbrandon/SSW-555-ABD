@@ -98,6 +98,10 @@
 <-- 1|BIRT|Y
 --> 2 DATE 11 OCT 1989
 <-- 2|DATE|Y|11 OCT 1989
+--> 1 DEAT
+<-- 1|DEAT|Y
+--> 2 DATE 11 NOV 2017
+<-- 2|DATE|Y|11 NOV 2017
 --> 1 SEX F
 <-- 1|SEX|Y|F
 --> 1 FAMC JohnsonG
