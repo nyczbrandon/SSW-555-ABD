@@ -37,7 +37,7 @@ private static GEDCOMReader gr;
 	public void test4() {
 		boolean found = false;
 		
-		for(Map.Entry<String, Individual> e: gr.getIndividuals.entrySet() ) {
+		for(Map.Entry<String, Individual> e: gr.getIndividuals().entrySet() ) {
 			if(e.getValue().isAlive()==true && e.getValue().getSpouses() != null) {
 				found = true;
 			}
