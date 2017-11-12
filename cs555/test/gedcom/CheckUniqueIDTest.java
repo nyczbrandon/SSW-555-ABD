@@ -38,23 +38,6 @@ public class CheckUniqueIDTest {
 	
 	@Test
 	public void test4() {
-		boolean found = false;
-		Set<String> family_set = new HashSet<>();
-		for (Map.Entry<String, Family> e: gr.getFamilies().entrySet()) {
-			String family_id = e.getValue().getId();
-			if (family_set.add(family_id) == false) {
-				found = true;
-			}
-		}
-		Set<String> individual_set = new HashSet<>();
-		for (Map.Entry<String, Individual> e : gr.getIndividuals().entrySet()) {
-			String individual_id = e.getValue().getId();
-			if (individual_set.add(individual_id) == false) {
-				found = true;
-			}
-		}
-		assertTrue( (found == (gr.checkUniqueID() != null)) 
-				 || (found == (gr.checkUniqueID() == null))
-				                                                        );
+		assertTrue(gr.unique_id == (gr.checkUniqueID() == null));
 	}
 }

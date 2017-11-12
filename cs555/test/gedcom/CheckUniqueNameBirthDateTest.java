@@ -37,21 +37,18 @@ public class CheckUniqueNameBirthDateTest {
 	
 	@Test
 	public void test4() {
-		Set<String> name_set = new HashSet<>();
-		Set<Date> birth_date_set = new HashSet<>();
 		boolean found = false;
-		for (Map.Entry<String, Individual> e : gr.individuals.entrySet()) {
-			String name = e.getValue().getName();
-			Date birth_date = e.getValue().getBirthday();
-			if (name_set.add(name) == false) {
-				found = true;
-			}
-			if (birth_date_set.add(birth_date) == false) {
-				found = true;
+		for (Map.Entry<String, Individual> e1 : gr.getIndividuals().entrySet()) {
+			for (Map.Entry<String, Individual> e2 : gr.getIndividuals().entrySet()) {
+				if (e1 != e2) {
+					if (e1.getValue().getName().equals(e2.getValue().getName()) && e1.getValue().getBirthday().compareTo(e2.getValue().getBirthday()) == 0 ) {
+						found = true;			
+					}
+				}
 			}
 		}
-		assertTrue( (found == (gr.checkUniqueNameBirthDate() != null)) 
-				 || (found == (gr.checkUniqueNameBirthDate() == null))
-				                                                        );
+		assertTrue(found == (gr.checkUniqueNameBirthDate() != null) || found == (gr.checkUniqueNameBirthDate() == null));
 	}
+	
+
 }
