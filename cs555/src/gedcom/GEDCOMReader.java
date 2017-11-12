@@ -422,6 +422,34 @@ public class GEDCOMReader {
 		return errors;
 	}
 	
+	//checks for individuals who were born in last 30 days
+	public List<String> checkRecentBirths() {
+		List<String> errors = new ArrayList<String>();
+		Calendar recent = Calendar.getInstance();
+		recent.add( Calendar.DAY_OF_MONTH, -30);
+		for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
+			Individual i = e.getValue();
+			if ( i.getBirthday().after( recent.getTime() ) ) {
+				errors.add( "Error (US35) : Individual " + i.getName() + "(" + i.getId() + ") was born recently." );
+			}
+		}
+		return errors;
+	}
+	
+	//checks for individuals who were died in last 30 days
+		public List<String> checkRecentDeaths() {
+			List<String> errors = new ArrayList<String>();
+			Calendar recent = Calendar.getInstance();
+			recent.add( Calendar.DAY_OF_MONTH, -30);
+			for ( Map.Entry<String, Individual> e: individuals.entrySet() ) {
+				Individual i = e.getValue();
+				if ( i.getDeath() != null && i.getDeath().after( recent.getTime() ) ) {
+					errors.add( "Error (US36) : Individual " + i.getName() + "(" + i.getId() + ") died recently." );
+				}
+			}
+			return errors;
+		}
+	
 	// find people whose divorce date is before to marriage date
 	public List<String> checkDivorceBeforeMarriage() {
 		List<String> errors = new ArrayList<String>();
@@ -790,6 +818,8 @@ public class GEDCOMReader {
 		errors.addAll( listLivingMarried() );
 		errors.addAll( checkUniqueID() );
 		errors.addAll( checkUniqueNameBirthDate());
+		errors.addAll( checkRecentBirths() );
+		errors.addAll( checkRecentDeaths() );
 		return errors;
 	}
 	
