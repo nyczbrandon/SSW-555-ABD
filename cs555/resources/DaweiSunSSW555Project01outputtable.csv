@@ -1,34 +1,109 @@
 Individuals
 ID,Name,Gender,Birthday,Age,Alive,Death,Child,Spouse
-I9,Billy /Smith/,M,2011-07-22,6,true,NA,"{'SmithPP'}",NA
 I1,Joe /Smith/,M,1852-04-17,165,true,NA,NA,"{'SmithG'}"
-I2,Sarah /Smith/,F,1955-05-05,62,true,NA,NA,"{'SmithG'}"
+I11,Alexander /Smith/,M,2020-01-15,-3,true,NA,"{'SmithP'}",NA
+I2,Sarah /Smith/,F,1900-05-05,117,true,NA,NA,"{'SmithG'}"
+I10,Alexa /Smith/,M,2020-01-15,-3,true,NA,"{'SmithP'}","{'SmithAA'}"
 I3,Richard /Johnson/,M,1953-01-22,64,true,NA,NA,"{'JohnsonG'}"
+I13,Alexis /Smith/,M,2020-01-15,-3,true,NA,"{'SmithP'}",NA
 I4,Sharon /Johnson/,F,1960-02-15,57,true,NA,NA,"{'JohnsonG'}"
-I5,Jeff /Smith/,M,1985-08-11,24,false,2010-04-12,"{'SmithG'}","{'SmithP', 'SmithPP'}"
+I12,Alexstraza /Smith/,M,2020-01-15,-3,true,NA,"{'SmithP'}",NA
+I5,Jeff /Smith/,F,1985-08-11,11,false,1997-04-12,"{'SmithG'}","{'SmithP', 'SmithPP', 'SmithAAA'}"
+I15,Alextra /Smith/,F,2020-01-20,-3,true,NA,"{'SmithP'}","{'SmithAAA'}"
 I6,Catherine /Smith/,F,1988-10-10,-1,false,1987-10-10,"{'JohnsonG'}","{'SmithP'}"
-I7,Susan /Smith/,F,1988-10-18,28,true,NA,"{'JohnsonG'}","{'SmithPP'}"
+I14,Alexandra /Smith/,F,2020-01-15,-3,true,NA,"{'SmithP'}","{'SmithAA'}"
+I7,Susan /Smith/,F,1989-10-11,28,true,NA,"{'JohnsonG'}","{'SmithPP'}"
 I8,Alex /Smith/,M,2020-01-15,-3,true,NA,"{'JohnsonP'}",NA
+I16,Alextra /Smith/,F,2020-01-20,-3,true,NA,"{'SmithP'}","{'SmithAAA'}"
+I9,Billy /Smith/,M,1962-07-22,55,true,NA,"{'SmithPP'}",NA
 
 Families
 ID,Married,Divorce,Husband ID,Husband Name,Wife ID,Wife Name,Children
-SmithPP,2011-10-10,2009-12-15,I5,Jeff /Smith/,I7,Susan /Smith/,"{'I9'}" 
+SmithPP,2000-10-10,1998-12-15,I5,Jeff /Smith/,I7,Susan /Smith/,"{'I9'}" 
+SmithAA,2020-01-20,NA,I10,Alexa /Smith/,I14,Alexandra /Smith/,"{}" 
 JohnsonG,1985-08-12,NA,I3,Richard /Johnson/,I4,Sharon /Johnson/,"{'I6', 'I7'}" 
+SmithAAA,2020-01-20,NA,I5,Jeff /Smith/,I15,Alextra /Smith/,"{}" 
 SmithG,1983-06-26,NA,I1,Joe /Smith/,I2,Sarah /Smith/,"{'I5'}" 
-SmithP,1965-01-12,NA,I5,Jeff /Smith/,I6,Catherine /Smith/,"{'I8'}" 
+SmithP,1965-01-12,2020-01-16,I5,Jeff /Smith/,I6,Catherine /Smith/,"{'I8', 'I10', 'I11', 'I12', 'I13', 'I14', 'I15'}" 
 
 Error (US07) : Joe /Smith/(I1) has an age of 150 or more.
+Error (US01) : Alexander /Smith/(I11) has a date after current date.
+Error (US01) : Alexa /Smith/(I10) has a date after current date.
+Error (US01) : Alexis /Smith/(I13) has a date after current date.
+Error (US01) : Alexstraza /Smith/(I12) has a date after current date.
+Error (US01) : Alextra /Smith/(I15) has a date after current date.
+Error (US01) : Alexandra /Smith/(I14) has a date after current date.
 Error (US01) : Alex /Smith/(I8) has a date after current date.
+Error (US01) : Alextra /Smith/(I16) has a date after current date.
+Error (US01) : SmithAA has a date after current date.
+Error (US01) : SmithAAA has a date after current date.
+Error (US01) : SmithP has a date after current date.
 Error (US08) : Billy /Smith/(I9) was born before the marriage of his parents Jeff /Smith/(I5) and Susan /Smith/(I7).
+Error (US08) : Alex /Smith/(I8) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
+Error (US08) : Alexa /Smith/(I10) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
+Error (US08) : Alexander /Smith/(I11) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
+Error (US08) : Alexstraza /Smith/(I12) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
+Error (US08) : Alexis /Smith/(I13) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
+Error (US08) : Alexandra /Smith/(I14) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
+Error (US08) : Alextra /Smith/(I15) was born more than 9 months after the divorce of his parents Jeff /Smith/(I5) and Catherine /Smith/(I6).
 Error (US03) : Death before birth of Catherine /Smith/(I6).
 Error (US02) : Family SmithP married before birth of Jeff /Smith/(I5).
+Error (US02) : Family SmithAAA married before birth of Alextra /Smith/(I15).
 Error (US02) : Family SmithP married before birth of Catherine /Smith/(I6).
+Error (US02) : Family SmithAAA married before birth of Alextra /Smith/(I16).
+Error (US14) : Family SmithP has 6 or more children born on the same day.
+Error (US12) : Family SmithG has mother Sarah /Smith/(I2) that is 60 or more years older than child Jeff /Smith/(I5).
+Error (US12) : Family SmithG has father Joe /Smith/(I1) that is 80 or more years older than child Jeff /Smith/(I5).
 Error (US04) : Divorce date of Jeff /Smith/(I5)occurs before his marriage date.
 Error (US04) : Divorce date of Susan /Smith/(I7)occurs before her marriage date.
 Error (US05) : Death date of Jeff /Smith/(I5) occurs before his marriage date.
-Error (US09) : Birthday of Billy /Smith/(I9) is after death date of parents
+Error (US05) : Death date of Jeff /Smith/(I5) occurs before his marriage date.
+Error (US06) : Death date of Jeff /Smith/(I5) is before his divorce date.
+Error (US06) : Death date of Jeff /Smith/(I5) is before his divorce date.
+Error (US06) : Death date of Catherine /Smith/(I6) is before her divorce date.
 Error (US09) : Birthday of Alex /Smith/(I8) is after death date of parents
+Error (US09) : Birthday of Alexa /Smith/(I10) is after death date of parents
+Error (US09) : Birthday of Alexander /Smith/(I11) is after death date of parents
+Error (US09) : Birthday of Alexstraza /Smith/(I12) is after death date of parents
+Error (US09) : Birthday of Alexis /Smith/(I13) is after death date of parents
+Error (US09) : Birthday of Alexandra /Smith/(I14) is after death date of parents
+Error (US09) : Birthday of Alextra /Smith/(I15) is after death date of parents
 Error (US09) : Birthday of Alex /Smith/(I8) is after death date of parents
+Error (US09) : Birthday of Alexa /Smith/(I10) is after death date of parents
+Error (US09) : Birthday of Alexander /Smith/(I11) is after death date of parents
+Error (US09) : Birthday of Alexstraza /Smith/(I12) is after death date of parents
+Error (US09) : Birthday of Alexis /Smith/(I13) is after death date of parents
+Error (US09) : Birthday of Alexandra /Smith/(I14) is after death date of parents
+Error (US09) : Birthday of Alextra /Smith/(I15) is after death date of parents
+Error (US10) : Wife Susan /Smith/(I7) married before age 14
+Error (US10) : Husband Alexa /Smith/(I10) married before age 14
+Error (US10) : Wife Alexandra /Smith/(I14) married before age 14
+Error (US10) : Wife Alextra /Smith/(I15) married before age 14
 Error (US10) : Husband Jeff /Smith/(I5) married before age 14
 Error (US10) : Wife Catherine /Smith/(I6) married before age 14
-Error (US13) : Birth dates of siblings Catherine /Smith/ (I6) and Susan /Smith/(I7) should be more than 8 months apart or less than 2 days apart.
+Error (US21) : Gender role of Jeff /Smith/(I5) is not correct
+Error (US21) : Gender role of Jeff /Smith/(I5) is not correct
+Error (US21) : Gender role of Jeff /Smith/(I5) is not correct
+Error (US13) : Birth dates of siblings Alex /Smith/ (I8) and Alextra /Smith/(I15) should be more than 8 months apart or less than 2 days apart.
+Error (US13) : Birth dates of siblings Alexa /Smith/ (I10) and Alextra /Smith/(I15) should be more than 8 months apart or less than 2 days apart.
+Error (US13) : Birth dates of siblings Alexander /Smith/ (I11) and Alextra /Smith/(I15) should be more than 8 months apart or less than 2 days apart.
+Error (US13) : Birth dates of siblings Alexstraza /Smith/ (I12) and Alextra /Smith/(I15) should be more than 8 months apart or less than 2 days apart.
+Error (US13) : Birth dates of siblings Alexis /Smith/ (I13) and Alextra /Smith/(I15) should be more than 8 months apart or less than 2 days apart.
+Error (US13) : Birth dates of siblings Alexandra /Smith/ (I14) and Alextra /Smith/(I15) should be more than 8 months apart or less than 2 days apart.
+Error (17) : I5(I5) married to his descendant I15
+List deceased (US29): Individual I5 is dead.
+List deceased (US29): Individual I6 is dead.
+Error (18): I10 and I14 are married Siblings.
+List Living Single (US31): Individual I9 is currently single and older than 30.
+List Living Married (US30): Individual I1 is currently alive and married.
+List Living Married (US30): Individual I2 is currently alive and married.
+List Living Married (US30): Individual I10 is currently alive and married.
+List Living Married (US30): Individual I3 is currently alive and married.
+List Living Married (US30): Individual I4 is currently alive and married.
+List Living Married (US30): Individual I15 is currently alive and married.
+List Living Married (US30): Individual I14 is currently alive and married.
+List Living Married (US30): Individual I7 is currently alive and married.
+List Living Married (US30): Individual I16 is currently alive and married.
+Error (22): All individual IDs should be unique and all family IDs should be unique.
+Error (23): No more than one individual with the same name and birth date.
+Error (23): No more than one individual with the same name and birth date.

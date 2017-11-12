@@ -20,8 +20,8 @@
 <-- 1|NAME|Y|Sarah /Smith/
 --> 1 BIRT
 <-- 1|BIRT|Y
---> 2 DATE 5 MAY 1955
-<-- 2|DATE|Y|5 MAY 1955
+--> 2 DATE 5 MAY 1900
+<-- 2|DATE|Y|5 MAY 1900
 --> 1 SEX F
 <-- 1|SEX|Y|F
 --> 1 FAMS SmithG
@@ -60,16 +60,18 @@
 <-- 2|DATE|Y|11 AUG 1985
 --> 1 DEAT
 <-- 1|DEAT|Y
---> 2 DATE 12 APR 2010
-<-- 2|DATE|Y|12 APR 2010
---> 1 SEX M
-<-- 1|SEX|Y|M
+--> 2 DATE 12 APR 1997
+<-- 2|DATE|Y|12 APR 1997
+--> 1 SEX F
+<-- 1|SEX|Y|F
 --> 1 FAMC SmithG
 <-- 1|FAMC|Y|SmithG
 --> 1 FAMS SmithP
 <-- 1|FAMS|Y|SmithP
 --> 1 FAMS SmithPP
 <-- 1|FAMS|Y|SmithPP
+--> 1 FAMS SmithAAA
+<-- 1|FAMS|Y|SmithAAA
 --> 0 I6 INDI
 <-- 0|INDI|Y|I6
 --> 1 NAME Catherine /Smith/
@@ -94,8 +96,8 @@
 <-- 1|NAME|Y|Susan /Smith/
 --> 1 BIRT
 <-- 1|BIRT|Y
---> 2 DATE 18 OCT 1988
-<-- 2|DATE|Y|18 OCT 1988
+--> 2 DATE 11 OCT 1989
+<-- 2|DATE|Y|11 OCT 1989
 --> 1 SEX F
 <-- 1|SEX|Y|F
 --> 1 FAMC JohnsonG
@@ -108,8 +110,8 @@
 <-- 1|NAME|Y|Alex /Smith/
 --> 1 BIRT
 <-- 1|BIRT|Y
---> 2 DATE 15 Jan 2020
-<-- 2|DATE|Y|15 Jan 2020
+--> 2 DATE 15 JAN 2020
+<-- 2|DATE|Y|15 JAN 2020
 --> 1 SEX M
 <-- 1|SEX|Y|M
 --> 1 FAMC JohnsonP
@@ -120,12 +122,116 @@
 <-- 1|NAME|Y|Billy /Smith/
 --> 1 BIRT
 <-- 1|BIRT|Y
---> 2 DATE 22 JUL 2011
-<-- 2|DATE|Y|22 JUL 2011
+--> 2 DATE 22 JUL 1962
+<-- 2|DATE|Y|22 JUL 1962
 --> 1 SEX M
 <-- 1|SEX|Y|M
 --> 1 FAMC SmithPP
 <-- 1|FAMC|Y|SmithPP
+--> 0 I10 INDI
+<-- 0|INDI|Y|I10
+--> 1 NAME Alexa /Smith/
+<-- 1|NAME|Y|Alexa /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 Jan 2020
+<-- 2|DATE|Y|15 Jan 2020
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 1 FAMS SmithAA
+<-- 1|FAMS|Y|SmithAA
+--> 0 I11 INDI
+<-- 0|INDI|Y|I11
+--> 1 NAME Alexander /Smith/
+<-- 1|NAME|Y|Alexander /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 JAN 2020
+<-- 2|DATE|Y|15 JAN 2020
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 0 I12 INDI
+<-- 0|INDI|Y|I12
+--> 1 NAME Alexstraza /Smith/
+<-- 1|NAME|Y|Alexstraza /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 JAN 2020
+<-- 2|DATE|Y|15 JAN 2020
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 0 I12 INDI
+<-- 0|INDI|Y|I12
+--> 1 NAME David /Smith/
+<-- 1|NAME|Y|David /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 JAN 2020
+<-- 2|DATE|Y|15 JAN 2020
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 0 I13 INDI
+<-- 0|INDI|Y|I13
+--> 1 NAME Alexis /Smith/
+<-- 1|NAME|Y|Alexis /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 JAN 2020
+<-- 2|DATE|Y|15 JAN 2020
+--> 1 SEX M
+<-- 1|SEX|Y|M
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 0 I14 INDI
+<-- 0|INDI|Y|I14
+--> 1 NAME Alexandra /Smith/
+<-- 1|NAME|Y|Alexandra /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 15 JAN 2020
+<-- 2|DATE|Y|15 JAN 2020
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 1 FAMS SmithAA
+<-- 1|FAMS|Y|SmithAA
+--> 0 I15 INDI
+<-- 0|INDI|Y|I15
+--> 1 NAME Alextra /Smith/
+<-- 1|NAME|Y|Alextra /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 20 JAN 2020
+<-- 2|DATE|Y|20 JAN 2020
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 1 FAMS SmithAAA
+<-- 1|FAMS|Y|SmithAAA
+--> 0 I16 INDI
+<-- 0|INDI|Y|I16
+--> 1 NAME Alextra /Smith/
+<-- 1|NAME|Y|Alextra /Smith/
+--> 1 BIRT
+<-- 1|BIRT|Y
+--> 2 DATE 20 JAN 2020
+<-- 2|DATE|Y|20 JAN 2020
+--> 1 SEX F
+<-- 1|SEX|Y|F
+--> 1 FAMC SmithP
+<-- 1|FAMC|Y|SmithP
+--> 1 FAMS SmithAAA
+<-- 1|FAMS|Y|SmithAAA
 --> 0 SmithG FAM
 <-- 0|FAM|Y|SmithG
 --> 1 HUSB I1
@@ -162,8 +268,24 @@
 <-- 1|MARR|Y
 --> 2 DATE 12 JAN 1965
 <-- 2|DATE|Y|12 JAN 1965
+--> 1 DIV
+<-- 1|DIV|Y
+--> 2 DATE 16 JAN 2020
+<-- 2|DATE|Y|16 JAN 2020
 --> 1 CHIL I8
 <-- 1|CHIL|Y|I8
+--> 1 CHIL I10
+<-- 1|CHIL|Y|I10
+--> 1 CHIL I11
+<-- 1|CHIL|Y|I11
+--> 1 CHIL I12
+<-- 1|CHIL|Y|I12
+--> 1 CHIL I13
+<-- 1|CHIL|Y|I13
+--> 1 CHIL I14
+<-- 1|CHIL|Y|I14
+--> 1 CHIL I15
+<-- 1|CHIL|Y|I15
 --> 0 SmithPP FAM
 <-- 0|FAM|Y|SmithPP
 --> 1 HUSB I5
@@ -172,13 +294,33 @@
 <-- 1|WIFE|Y|I7
 --> 1 MARR
 <-- 1|MARR|Y
---> 2 DATE 10 OCT 2011
-<-- 2|DATE|Y|10 OCT 2011
+--> 2 DATE 10 OCT 2000
+<-- 2|DATE|Y|10 OCT 2000
 --> 1 DIV
 <-- 1|DIV|Y
---> 2 DATE 15 DEC 2009
-<-- 2|DATE|Y|15 DEC 2009
+--> 2 DATE 15 DEC 1998
+<-- 2|DATE|Y|15 DEC 1998
 --> 1 CHIL I9
 <-- 1|CHIL|Y|I9
+--> 0 SmithAA FAM
+<-- 0|FAM|Y|SmithAA
+--> 1 HUSB I10
+<-- 1|HUSB|Y|I10
+--> 1 WIFE I14
+<-- 1|WIFE|Y|I14
+--> 1 MARR
+<-- 1|MARR|Y
+--> 2 DATE 20 JAN 2020
+<-- 2|DATE|Y|20 JAN 2020
+--> 0 SmithAAA FAM
+<-- 0|FAM|Y|SmithAAA
+--> 1 HUSB I5
+<-- 1|HUSB|Y|I5
+--> 1 WIFE I15
+<-- 1|WIFE|Y|I15
+--> 1 MARR
+<-- 1|MARR|Y
+--> 2 DATE 20 JAN 2020
+<-- 2|DATE|Y|20 JAN 2020
 --> 0 TRLR
 <-- 0|TRLR|Y

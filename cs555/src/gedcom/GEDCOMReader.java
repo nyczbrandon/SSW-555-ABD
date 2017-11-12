@@ -28,6 +28,8 @@ public class GEDCOMReader {
 	public static final int AGE_LIMIT = 150;
 	private static DateFormat formatter = new SimpleDateFormat( "dd MMM yyyy" );
 	
+	public boolean unique_id = true;
+	
 	public GEDCOMReader( String gedcomFile ) throws Exception {
 		this.gedcomFile = new File( gedcomFile );
 		createGEDCOMObjects();
@@ -130,7 +132,13 @@ public class GEDCOMReader {
 									i.setAge( death.get( Calendar.YEAR ) - birthday.get( Calendar.YEAR ) - 1 );
 								}
 							}
-							individuals.put( i.getId(), i );
+							if (!individuals.containsKey(i.getId())) {
+								individuals.put( i.getId(), i );
+							}
+							else {
+								unique_id = false;
+							}
+							
 							break;
 						}
 						if ( split.get( 0 ).equals( "1" ) ) {
@@ -188,7 +196,12 @@ public class GEDCOMReader {
 						split = new ArrayList<String>( Arrays.asList( line.split( " ", 3 ) ) );
 						split.replaceAll(String::trim);
 						if ( split.get( 0 ).equals( "0" ) ) {
-							families.put( f.getId(), f ); 
+							if (!families.containsKey(f.getId())) {
+								families.put( f.getId(), f );
+							}
+							else {
+								unique_id = false;
+							}
 							break;
 						}
 						if ( split.get( 0 ).equals( "1" ) ) {
@@ -732,37 +745,23 @@ public class GEDCOMReader {
 	// checks all individual IDs should be unique and all family IDs should be unique
 	public List<String> checkUniqueID() {
 		List<String> errors = new ArrayList<String>();
-		Set<String> family_set = new HashSet<>();
-		for (Map.Entry<String, Family> e: families.entrySet()) {
-			String family_id = e.getValue().getId();
-			if (family_set.add(family_id) == false) {
-				errors.add("Error (22): All family IDs should be unique.");
-			}
-		}
-		
-		Set<String> individual_set = new HashSet<>();
-		for (Map.Entry<String, Individual> e : individuals.entrySet()) {
-			String individual_id = e.getValue().getId();
-			if (individual_set.add(individual_id) == false) {
-				errors.add("Error (22): All individual IDs should be unique.");
-			}
+		if (unique_id == false) {
+			errors.add("Error (22): All individual IDs should be unique and all family IDs should be unique.");
 		}
 		return errors;
 	}
 	
 	// checks unique name and birth date
+	// No more than one individual with the same name and birth date should appear in a GEDCOM file
 	public List<String> checkUniqueNameBirthDate() {
 		List<String> errors = new ArrayList<String>();
-		Set<String> name_set = new HashSet<>();
-		Set<Date> birth_date_set = new HashSet<>();
-		for (Map.Entry<String, Individual> e : individuals.entrySet()) {
-			String name = e.getValue().getName();
-			Date birth_date = e.getValue().getBirthday();
-			if (name_set.add(name) == false) {
-				errors.add("Error (23): No more than one individual with the same name.");
-			}
-			if (birth_date_set.add(birth_date) == false) {
-				errors.add("Error (23): No more than one individual with the same birth date.");
+		for (Map.Entry<String, Individual> e1 : individuals.entrySet()) {
+			for (Map.Entry<String, Individual> e2 : individuals.entrySet()) {
+				if (e1 != e2) {
+					if (e1.getValue().getName().equals(e2.getValue().getName()) && e1.getValue().getBirthday().compareTo(e2.getValue().getBirthday()) == 0 ) {
+						errors.add("Error (23): No more than one individual with the same name and birth date.");				
+					}
+				}
 			}
 		}
 		return errors;
@@ -789,6 +788,8 @@ public class GEDCOMReader {
 		errors.addAll( checkNotSiblings() );
 		errors.addAll( listLivingSingle() );
 		errors.addAll( listLivingMarried() );
+		errors.addAll( checkUniqueID() );
+		errors.addAll( checkUniqueNameBirthDate());
 		return errors;
 	}
 	
